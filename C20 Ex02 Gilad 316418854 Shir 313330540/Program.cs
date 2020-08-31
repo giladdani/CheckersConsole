@@ -8,8 +8,7 @@
             UiManager uiManager = new UiManager(game);
             uiManager.initGameSettings();
             game.StartNewRound();
-            //shir loves cakes
-            //hi bla blo
+            //shir loves giving cakes to gilad
         }
     }
 }
