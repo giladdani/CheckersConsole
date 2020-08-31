@@ -9,6 +9,7 @@
             uiManager.initGameSettings();
             game.StartNewRound();
             //shir loves cakes
+            //hi bla blo
         }
     }
 }
