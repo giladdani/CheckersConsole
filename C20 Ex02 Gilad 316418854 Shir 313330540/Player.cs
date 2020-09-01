@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Windows;
+using System.Drawing;
 
 namespace C20_Ex02_Gilad_316418854_Shir_313330540
 {
@@ -11,62 +10,76 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         private ePlayerSide m_Side;
         private Piece[] m_PiecesArr;
         private int m_TotalPoints;
+        private Boolean m_IsAI;
         public enum ePlayerSide
         {
             Up, Down
         }
         //??? moves array
 
-        public Player(string i_Name, ePlayerSide i_Side, int i_Pieces)
+        public Player(string i_Name, ePlayerSide i_Side, int i_SizeOfBoard)
         {
             m_Name = i_Name;
             m_Side = i_Side;
             m_TotalPoints = 0;
-            m_PiecesArr = new Piece[i_Pieces];
-            initializePieceArr();
-            for (int i = 0; i < i_Pieces; i++)
-            {
-                m_PiecesArr[0].Location.X=
 
+            InitializePieceArr(i_Side, i_SizeOfBoard);
+           
+        }
+
+        public Piece[] PiecesArr
+        {
+            get
+            {
+                return PiecesArr;
             }
         }
-        private void BuildPlayerPiecesArr(Player.ePlayerSide i_Type,  int i_Pieces)
+        public bool IsAI
         {
-            int numOfRows = i_Pieces / 4;// i_pieces is the amunt of pieces the player have
-
-            Piece[] piecesArr = buildStartArr(i_Type, i_Pieces, numOfRows);
-            // num of rows depends on the amount of pieces 8 pieces->2 rows, 12 pieces ->3 rows, 16 pieces ->4 rows
-            if 
-        }
-
-        private Piece[] buildStartArr(ePlayerSide i_Type, int i_Pieces, int numOfRows)
-        {
-            int k = 0;
-            Piece[] piecesArr = new Piece[i_Pieces];
-
-            while (k < i_Pieces)
+            get
             {
-
-
-                for (int i = i_StartRow; i < i_EndRow; i++)
+                return (IsAI == true);
+            }
+            set
+            {
+                IsAI = value;
+            }
+        }
+        private void InitializePieceArr(ePlayerSide i_Side, int i_SizeOfBoard)
+        {
+            int numOfPieces = (i_SizeOfBoard/2)*(i_SizeOfBoard-1);
+            m_PiecesArr = new Piece[numOfPieces];
+            int endRow, startRow, piecesIndex = 0;
+            if (i_Side == ePlayerSide.Up)
+            {
+                startRow = 0;
+                endRow = (i_SizeOfBoard / 2) - 1;
+            }
+            else //i_side=Down
+            {
+                startRow = (i_SizeOfBoard / 2) - 1;
+                endRow = i_SizeOfBoard;
+            }
+            while (piecesIndex < numOfPieces)
+            {
+                for (int i = startRow; i < endRow ; i++)
                 {
-                    for (int j = 0; j < m_Size; j++)
+                    for (int j = 0; j < i_SizeOfBoard; j++)
                     {
                         if ((j % 2 == 1) && (i % 2 == 0))
                         {
                             Point locationPoint = new Point(i, j);
-                            Piece boardPiece = new Piece(locationPoint, i_Type);
-                            m_Board[i, j].piecePointer = boardPiece;
-                            piecesArr[k].Location.X = i;
-
-                            k++;
+                            Piece boardPiece = new Piece(locationPoint, i_Side);
+                            m_PiecesArr[piecesIndex] = boardPiece;
+                            piecesIndex++;
                         }
 
                         if ((j % 2 == 0) && (i % 2 == 1))
                         {
                             Point locationPoint = new Point(i, j);
-                            Piece boardPiece = new Piece(locationPoint, i_Type);
-                            m_Board[i, j].piecePointer = boardPiece;
+                            Piece boardPiece = new Piece(locationPoint, i_Side);
+                            m_PiecesArr[piecesIndex] = boardPiece;
+                            piecesIndex++;
 
                         }
 
@@ -74,5 +87,8 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                 }
             }
         }
+
+      
+      
     }
 }
