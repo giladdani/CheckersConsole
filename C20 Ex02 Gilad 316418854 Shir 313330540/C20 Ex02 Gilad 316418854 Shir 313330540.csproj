@@ -56,6 +56,7 @@
     <Compile Include="eGameTypes.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="InputValidator.cs" />
+    <Compile Include="Piece.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Square.cs" />

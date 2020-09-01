@@ -5,8 +5,8 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
     public class Game
     {
         // Private Members
-        private Player m_PlayerOne;
-        private Player m_PlayerTwo;
+        private Player m_Player1;
+        private Player m_Player2;
         private Board m_Board;
         private eGameTypes m_GameType;
         private int m_TurnCount;
