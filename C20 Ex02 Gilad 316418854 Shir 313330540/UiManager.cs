@@ -27,18 +27,67 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
 
         public void StartGame()
         {
+            string move;
             m_CurrentGame.Board.Build();
             m_CurrentGame.TurnCount = 1;
             while(m_CurrentGame.IsOver)
             {
                 Ex02.ConsoleUtils.Screen.Clear();
                 printBoard();
-                m_CurrentGame.PlayNextTurn();
+                move = getMove();
+                m_CurrentGame.PlayNextTurn(move);
                 m_CurrentGame.TurnCount++;
             }
             // get winner/tie from game
             printScoreboard();
-            // ask for new round- if yes then call StartGame()
+            if(askNextGame() == true)
+            {
+                StartGame();
+            }
+            else
+            {
+                // announce final scores
+            }
+        }
+
+        // Private Methods
+        private void printCurrentPlayerTurnMessage()
+        {
+            StringBuilder turnMessage = new StringBuilder();
+            turnMessage.Append(m_CurrentGame.CurrentPlayer.Name);
+            turnMessage.Append("'s Turn ");
+            turnMessage.Append(m_CurrentGame.LastPlayer.Side == ePlayerSide.Down ? "(X):" : "(O):");
+        }
+
+        // Gets a move from the user
+        private string getMove()
+        {
+            bool isQuitting = false;
+            printCurrentPlayerTurnMessage();
+            string move = Console.ReadLine();
+            if(move == "Q")
+            {
+                isQuitting = true;
+            }
+            else
+            {
+
+            }
+
+            return move;
+        }
+
+        private bool askNextGame()
+        {
+            Console.WriteLine("Play again? enter 1 for YES or 2 for NO: ");
+            string choiceString = Console.ReadLine();
+            while (!InputValidator.IsValidGameType(choiceString))
+            {
+                Console.WriteLine("Invalid choice, enter 1 or 2: ");
+                choiceString = Console.ReadLine();
+            }
+
+            return (bool.Parse(choiceString));
         }
 
         // Prints the game's board in it's current state
@@ -47,18 +96,11 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             
         }
 
-        public void printLastTurn()
+        public void printLastTurnMessage()
         {
             StringBuilder lastTurnMessage = new StringBuilder(m_CurrentGame.LastPlayer);
             lastTurnMessage.Append("'s move was ");
-            if(m_CurrentGame.LastPlayer.Side == 1)      // todo fix this forsaken garbage of code
-            {
-                lastTurnMessage.Append("(X):");
-            }
-            else
-            {
-                lastTurnMessage.Append("(O):");
-            }
+            lastTurnMessage.Append(m_CurrentGame.LastPlayer.Side == ePlayerSide.Down ? "(X):" : "(O):");
             lastTurnMessage.Append(m_CurrentGame.LastPlayer.LastTurn);
             Console.WriteLine(lastTurnMessage);
         }

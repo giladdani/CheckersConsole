@@ -5,8 +5,9 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
     public class Game
     {
         // Private Members
-        private Player m_Player1;
-        private Player m_Player2;
+        private Player m_PlayerOne;
+        private Player m_PlayerTwo;
+        private Player m_LastPlayer;
         private Board m_Board;
         private eGameTypes m_GameType;
         private int m_TurnCount;
@@ -15,7 +16,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         // Constructors
         public Game(string i_PlayerOneName, int i_BoardSize, eGameTypes i_GameType) //todo merge the c'tors
         {
-            m_PlayerOne = new Player(i_PlayerOneName);
+            m_PlayerOne = new Player(i_PlayerOneName, i_BoardSize);
             m_Board = new Board(i_BoardSize);
             m_GameType = i_GameType;
             m_IsOver = false;
@@ -23,17 +24,21 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
 
         public Game(string i_PlayerOneName, string i_PlayerTwoName, int i_BoardSize, eGameTypes i_GameType)
         {
-            m_PlayerOne = new Player(i_PlayerOneName);
-            m_PlayerTwo = new Player(i_PlayerTwoName);
+            m_PlayerOne = new Player(i_PlayerOneName, i_BoardSize);
+            m_PlayerTwo = new Player(i_PlayerTwoName, i_BoardSize);
             m_Board = new Board(i_BoardSize);
             m_GameType = i_GameType;
             m_IsOver = false;
         }
 
+        public void SetPiecesStartingPositions()
+        {
+            m_Board.SetPiecesPosition(m_PlayerOne);
+            m_Board.SetPiecesPosition(m_PlayerTwo);
+        }
+
         public void PlayNextTurn()
         {
-
-
             // check if game is over- if so then m_IsOver = true
             // also calculate score
         }
@@ -68,6 +73,13 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                 }
 
                 return player;
+            }
+        }
+        public Player LastPlayer
+        {
+            get
+            {
+                return m_LastPlayer;
             }
         }
         public Board Board

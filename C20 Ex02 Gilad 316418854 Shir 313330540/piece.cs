@@ -1,59 +1,67 @@
 ﻿using System;
 using System.Windows;
+using System.Drawing;
 
 namespace C20_Ex02_Gilad_316418854_Shir_313330540
 {
     public class Piece
     {
-        private Boolean m_IsKing;
-        private Boolean m_IsCaptured;
+        private readonly ePlayerSide r_Side;
         private Point m_Location;
-        private readonly Player.ePlayerSide m_Type;//TODO : should it be readonly?
+        private bool m_IsKing;
+        private bool m_IsCaptured;
 
-        public Piece()
-        {
-            m_IsKing = false;
-            m_IsCaptured = false;
-           
-        }
-        public Piece(Point i_Location, Player.ePlayerSide i_Type)
+        // Constructors
+        public Piece(Point i_Location, ePlayerSide i_Side)
         {
             m_IsKing = false;
             m_IsCaptured = false;
             m_Location = i_Location;
-            m_Type = i_Type;
+            r_Side = i_Side;
         }
 
-        public Player.ePlayerSide Type
+        // Properties
+        public ePlayerSide Side
         {
             get
             {
-                return m_Type;
+                return r_Side;
             }
         }
         public Point Location
         {
-            get => m_Location;
-            set => m_Location = value;
-        }
-        public Boolean IsKing
-        {
-            get => m_IsKing;
+            get
+            {
+                return m_Location;
+            }
             set
             {
-                if (value == true)
+                m_Location = value;
+            }
+        }
+        public bool IsKing
+        {
+            get
+            {
+                return m_IsKing;
+            }
+            set
+            {
+                if (value == true)          // todo why this check? if we start a new round we want to reset it
                 {
-                    m_IsKing=true;
+                    m_IsKing = true;
                 }
             }
         }
-
-        public Boolean IsCaptured
+        public bool IsCaptured
         {
-            get => m_IsCaptured;
+            get
+            {
+                return m_IsCaptured;
+            }
             set
             {
-                if (value == true)
+                if (value == true)          // todo same question as IsKing
                 {
                     m_IsCaptured = true;
                 }

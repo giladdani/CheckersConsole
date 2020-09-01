@@ -4,7 +4,20 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
 {
     public class Square
     {
-        public Piece piecePointer;
+        // Private Members
+        private Piece m_PiecePointer;
 
+        // Properties
+        public Piece PiecePointer
+        {
+            get
+            {
+                return m_PiecePointer;
+            }
+            set
+            {
+                m_PiecePointer = value;
+            }
+        }
     }
 }
