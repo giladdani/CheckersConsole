@@ -1,89 +1,101 @@
 ﻿using System;
-using System.Runtime.Remoting.Messaging;
 
 namespace C20_Ex02_Gilad_316418854_Shir_313330540
 {
     public class Game
     {
         // Private Members
-        private readonly string r_PlayerOneName;
-        private readonly string r_PlayerTwoName;
+        private Player m_PlayerOne;
+        private Player m_PlayerTwo;
         private Board m_Board;
-        private string m_LastMove;
-        int m_TurnCount;
-        private int m_PlayerOneTotalScore = 0;
-        private int m_PlayerTwoTotalScore = 0;
+        private eGameTypes m_GameType;
+        private int m_TurnCount;
+        private bool m_IsOver;
 
         // Constructors
-        public Game(string i_PlayerOneName, string i_PlayerTwoName, int i_BoardSize)
+        public Game(string i_PlayerOneName, int i_BoardSize, eGameTypes i_GameType) //todo merge the c'tors
         {
-            r_PlayerOneName = i_PlayerOneName;
-            r_PlayerTwoName = i_PlayerTwoName;
+            m_PlayerOne = new Player(i_PlayerOneName);
             m_Board = new Board(i_BoardSize);
-            m_LastMove = null;          // @Eli- how did you saved the last move? string?
+            m_GameType = i_GameType;
+            m_IsOver = false;
         }
 
-        // Public Methods
-        public void StartNewRound()
+        public Game(string i_PlayerOneName, string i_PlayerTwoName, int i_BoardSize, eGameTypes i_GameType)
         {
-            m_Board.BuildBoard();
-            m_TurnCount = 1;
-            while (!IsRoundOver())
-            {
-                UiManager.SetNextTurn();
-                m_TurnCount++;
-            }
+            m_PlayerOne = new Player(i_PlayerOneName);
+            m_PlayerTwo = new Player(i_PlayerTwoName);
+            m_Board = new Board(i_BoardSize);
+            m_GameType = i_GameType;
+            m_IsOver = false;
+        }
+
+        public void PlayNextTurn()
+        {
+
+
+            // check if game is over- if so then m_IsOver = true
+            // also calculate score
         }
 
         // Properties
-        public string PlayerOneName
+        public Player PlayerOne
         {
             get
             {
-                return r_PlayerOneName;
-            }
-
-        }
-
-        public string PlayerTwoName
-        {
-            get
-            {
-                return r_PlayerTwoName; 
+                return m_PlayerOne;
             }
         }
-
-        public string LastMove
+        public Player PlayerTwo
         {
             get
             {
-                return m_LastMove;
+                return m_PlayerTwo; 
             }
         }
-
-        public string CurrentPlayerName
+        public Player CurrentPlayer
         {
             get
             {
-                string name;
+                Player player;
                 if (m_TurnCount % 2 == 0)
                 {
-                    name = PlayerTwoName;
+                    player = m_PlayerTwo;
                 }
                 else
                 {
-                    name = PlayerOneName;
+                    player = m_PlayerOne;
                 }
 
-                return name;
+                return player;
             }
         }
-
         public Board Board
         {
             get
             {
                 return m_Board;
+            }
+        }
+        public int TurnCount
+        {
+            get
+            {
+                return m_TurnCount;
+            }
+            set
+            {
+                if(value > 0)
+                {
+                    m_TurnCount = value;
+                }
+            }
+        }
+        public bool IsOver
+        {
+            get
+            {
+                return m_IsOver;
             }
         }
     }
