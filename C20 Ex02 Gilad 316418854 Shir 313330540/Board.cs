@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Drawing;
-using System.Windows;
 
 namespace C20_Ex02_Gilad_316418854_Shir_313330540
 {
@@ -14,11 +13,13 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         public Board(int i_Size)
         {
             m_Size = i_Size;
+            Build();
         }
 
         // Public Methods
         public void Build()
         {
+            m_Board= new Square[m_Size, m_Size];
             for (int i = 0; i < m_Size; i++)
             {
                 for (int j = 0; j < m_Size; j++)
@@ -26,41 +27,34 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                     m_Board[i, j].PiecePointer = null;
                 }
             }
-
-            SetPiecesPosition(ePlayerSide.Up, 0, (m_Size / 2) - 1);
-            SetPiecesPosition(ePlayerSide.Down, (m_Size / 2) + 1, m_Size);
         }
 
-        // Update both board and piece of new given location
-        public void MovePiece(Piece i_Piece, Point i_To)
+        public void SetPiecesPosition(Player i_Player)
         {
-            // update board's locations
-            m_Board[i_Piece.Location.X, i_Piece.Location.Y].PiecePointer = null;
-            m_Board[i_To.X, i_To.Y].PiecePointer = i_Piece;
-            // update piece's location
-            i_Piece.Location = i_To;
-        }
-
-        public void SetPiecesPosition(ePlayerSide i_Side, int i_StartRow, int i_EndRow)
-        {
-            for (int i = i_StartRow; i < i_EndRow; i++)
+            int x, y;
+            for (int i = 0; i < (m_Size / 2) * (m_Size - 1); i++)
             {
-                for (int j = 0; j < m_Size; j++)
-                {
-                    if ((j % 2 == 1) && (i % 2 == 0))
-                    {
-                        Point location = new Point(i, j);
-                        Piece boardPiece = new Piece(location, i_Side);
-                        m_Board[i, j].PiecePointer = boardPiece;
-                    }
+                x = i_Player.PiecesArr[i].Location.X;
+                y = i_Player.PiecesArr[i].Location.Y;
+                m_Board[x,y].PiecePointer = i_Player.PiecesArr[i];
+            }
+        }
+       
+        public void makeMove(Piece i_Piece, Point i_To)
+        {
+            m_Board[i_Piece.Location.X, i_Piece.Location.Y].PiecePointer = null;
+            // the piece pointer that this square had will be null now
+            i_Piece.Location = i_To;// update piece location
+            m_Board[i_To.X,i_To.Y].PiecePointer = i_Piece; 
+            //update the piece pointer in the new piece it have
+        }
 
-                    if ((j % 2 == 0) && (i % 2 == 1))
-                    {
-                        Point location = new Point(i, j);
-                        Piece boardPiece = new Piece(location, i_Side);
-                        m_Board[i, j].PiecePointer = boardPiece;
-                    }
-                }
+        // Properties
+        public int Size
+        {
+            get
+            {
+                return m_Size;
             }
         }
     }

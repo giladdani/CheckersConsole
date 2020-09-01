@@ -5,8 +5,8 @@
         public static void Main()
         {
             UiManager gameInterface = new UiManager();
-            gameInterface.InitGame();
-            gameInterface.StartGame();
+            gameInterface.CreateGame();
+            gameInterface.StartRound();
         }
     }
 }

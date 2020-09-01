@@ -20,8 +20,8 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         // Returns true if the given string represents a valid game mode choice
         public static bool IsValidGameType(string i_Choice)
         {
-            bool isValidNumber = Enum.TryParse(i_Choice, out eGameTypes type);
-            return (isValidNumber && (type == eGameTypes.OnePlayer || type == eGameTypes.TwoPlayers));
+            bool isValidNumber = Enum.TryParse(i_Choice, out int type);
+            return (isValidNumber && (type == 1 || type == 2));
         }
 
         // Returns true if the move is valid in terms of syntax (charchar>charchar)
@@ -30,8 +30,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             bool isSeparatorValid = true;
             bool isLettersValid = true;
             bool isLengthValid = i_Move.Length == 5;        //todo change 5 to define/const
-
-            if()
+            bool isQuitMove = (i_Move == "Q");
 
             if(isLengthValid)
             {
@@ -39,7 +38,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                 isLettersValid = isMoveLettersValid(i_Move, i_BoardSize);
             }
 
-            return (isLengthValid && isSeparatorValid && isLettersValid);
+            return (isQuitMove || (isLengthValid && isSeparatorValid && isLettersValid));
         }
 
         // Returns true if the letters of the move are in the right format

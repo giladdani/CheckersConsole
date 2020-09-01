@@ -9,38 +9,43 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         private Player m_PlayerTwo;
         private Player m_LastPlayer;
         private Board m_Board;
-        private eGameTypes m_GameType;
+        private bool m_AiMode;
         private int m_TurnCount;
-        private bool m_IsOver;
 
         // Constructors
-        public Game(string i_PlayerOneName, int i_BoardSize, eGameTypes i_GameType) //todo merge the c'tors
+        public Game(string i_PlayerOneName, string i_PlayerTwoName, int i_BoardSize, bool i_AiMode)
         {
-            m_PlayerOne = new Player(i_PlayerOneName, i_BoardSize);
+            m_PlayerOne = new Player(i_PlayerOneName, ePlayerSide.Up, i_BoardSize, false);
+            m_PlayerTwo = new Player(i_PlayerTwoName, ePlayerSide.Down, i_BoardSize, i_AiMode);
             m_Board = new Board(i_BoardSize);
-            m_GameType = i_GameType;
-            m_IsOver = false;
+            m_AiMode = i_AiMode;
         }
 
-        public Game(string i_PlayerOneName, string i_PlayerTwoName, int i_BoardSize, eGameTypes i_GameType)
-        {
-            m_PlayerOne = new Player(i_PlayerOneName, i_BoardSize);
-            m_PlayerTwo = new Player(i_PlayerTwoName, i_BoardSize);
-            m_Board = new Board(i_BoardSize);
-            m_GameType = i_GameType;
-            m_IsOver = false;
-        }
-
+        // Public Methods
+        // Setup each player's piece's position
         public void SetPiecesStartingPositions()
         {
             m_Board.SetPiecesPosition(m_PlayerOne);
             m_Board.SetPiecesPosition(m_PlayerTwo);
         }
 
-        public void PlayNextTurn()
+        // Execute the given move
+        public void ExecuteMove(string i_Move)
         {
-            // check if game is over- if so then m_IsOver = true
-            // also calculate score
+            if(i_Move != "Q")
+            {
+                // TODO
+                TurnCount++;
+            }
+        }
+
+        // Returns true if the game is over
+        public bool IsGameOver()
+        {
+            bool isOver = false;
+            // check number of pieces of each player
+            // check if last move was "Q"
+
         }
 
         // Properties
@@ -103,11 +108,26 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                 }
             }
         }
+        public bool AiMode
+        {
+            get
+            {
+                return m_AiMode;
+            }
+            set
+            {
+                m_AiMode = value;
+            }
+        }
         public bool IsOver
         {
             get
             {
                 return m_IsOver;
+            }
+            set
+            {
+                m_IsOver = value;
             }
         }
     }

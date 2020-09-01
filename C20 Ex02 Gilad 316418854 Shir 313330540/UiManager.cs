@@ -9,75 +9,60 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         private Game m_CurrentGame;
 
         // Public Methods
-        public void InitGame()
+        public void CreateGame()
         {
             string playerOneName = getNameFromUser();
             int boardSize = getBoardSizeFromUser();
-            eGameTypes gameType = getGameTypeFromUser();
-            if(gameType == eGameTypes.OnePlayer)
-            {
-                m_CurrentGame = new Game(playerOneName, boardSize, gameType);
-            }
-            else
-            {
-                string playerTwoName = getNameFromUser();
-                m_CurrentGame = new Game(playerOneName, playerTwoName, boardSize, gameType);
-            }
+            bool aiMode = getAiModeChoice();
+            string playerTwoName = aiMode ? "Computer" : getNameFromUser();
+
+            m_CurrentGame = new Game(playerOneName, playerTwoName, boardSize, aiMode);
         }
 
-        public void StartGame()
+        // Start a new round of the game
+        public void StartRound()
         {
-            string move;
             m_CurrentGame.Board.Build();
             m_CurrentGame.TurnCount = 1;
-            while(m_CurrentGame.IsOver)
+            while(!m_CurrentGame.IsOver())
             {
                 Ex02.ConsoleUtils.Screen.Clear();
                 printBoard();
-                move = getMove();
-                m_CurrentGame.PlayNextTurn(move);
-                m_CurrentGame.TurnCount++;
+                string currentMove = getMove();
+                m_CurrentGame.ExecuteMove(currentMove);
             }
-            // get winner/tie from game
-            printScoreboard();
-            if(askNextGame() == true)
+            // TODO calculate score and sum it to total score
+            printRoundScores();         // TODO
+            if(playAgain())
             {
-                StartGame();
+                StartRound();
             }
             else
             {
-                // announce final scores
+                printFinalScores();     // TODO
             }
         }
 
         // Private Methods
-        private void printCurrentPlayerTurnMessage()
+        // Gets a move from the user
+        private string getMove()
         {
             StringBuilder turnMessage = new StringBuilder();
             turnMessage.Append(m_CurrentGame.CurrentPlayer.Name);
             turnMessage.Append("'s Turn ");
             turnMessage.Append(m_CurrentGame.LastPlayer.Side == ePlayerSide.Down ? "(X):" : "(O):");
-        }
-
-        // Gets a move from the user
-        private string getMove()
-        {
-            bool isQuitting = false;
-            printCurrentPlayerTurnMessage();
             string move = Console.ReadLine();
-            if(move == "Q")
+            while(!InputValidator.IsMoveSyntaxValid(move, m_CurrentGame.Board.Size))
             {
-                isQuitting = true;
-            }
-            else
-            {
-
+                Console.WriteLine("Invalid move format, try again: ");
+                move = Console.ReadLine();
             }
 
             return move;
         }
 
-        private bool askNextGame()
+        // Returns true if the user input is another game
+        private bool playAgain()
         {
             Console.WriteLine("Play again? enter 1 for YES or 2 for NO: ");
             string choiceString = Console.ReadLine();
@@ -93,7 +78,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         // Prints the game's board in it's current state
         private void printBoard()
         {
-            
+            // TODO
         }
 
         public void printLastTurnMessage()
@@ -135,9 +120,10 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             return (int.Parse(sizeString));
         }
 
-        // Returns a valid Game type from user input
-        private eGameTypes getGameTypeFromUser()
+        // Returns true if the user chose to play against AI
+        private bool getAiModeChoice()
         {
+            bool choice = false;
             Console.WriteLine("Enter 1 for versus AI or 2 for two players: ");
             string choiceString = Console.ReadLine();
             while(!InputValidator.IsValidGameType(choiceString))
@@ -146,11 +132,16 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                 choiceString = Console.ReadLine();
             }
 
-            return ((eGameTypes)choiceString[0]);
+            if(choiceString == "1")
+            {
+                choice = true;
+            }
+
+            return choice;
         }
 
         // Properties
-        public Game Game
+        public Game CurrentGame
         {
             get
             {

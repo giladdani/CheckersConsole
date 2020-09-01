@@ -53,7 +53,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Board.cs" />
-    <Compile Include="eGameTypes.cs" />
     <Compile Include="ePlayerSide.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="InputValidator.cs" />

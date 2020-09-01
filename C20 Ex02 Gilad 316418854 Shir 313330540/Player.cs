@@ -1,5 +1,4 @@
 ﻿using System;
-using System.CodeDom;
 using System.Drawing;
 
 namespace C20_Ex02_Gilad_316418854_Shir_313330540
@@ -10,59 +9,58 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         private string m_Name;
         private ePlayerSide m_Side;
         private Piece[] m_Pieces;
-        private int m_TotalPoints;
+        private int m_TotalScore;
         private bool m_IsAi;
         private string m_LastTurn;
         
         // Constructors
-        public Player(string i_Name, ePlayerSide i_Side, int i_NumOfPieces)
+        public Player(string i_Name, ePlayerSide i_Side, int i_BoardSize, bool i_IsAi)
         {
             m_Name = i_Name;
             m_Side = i_Side;
-            m_TotalPoints = 0;
-            m_Pieces = new Piece[i_NumOfPieces];
-            initPiecesArray();
-            for (int i = 0; i < i_Pieces; i++)
-            {
-                m_Pieces[0].Location.X =
-            }
+            m_IsAi = i_IsAi;
+            m_TotalScore = 0;
+            initPieceArr(i_Side, i_BoardSize);
         }
 
         // Private Methods
-        private void buildPlayerPiecesArr(ePlayerSide i_Side, int i_NumOfPieces)
+        // Initialize array of pieces
+        private void initPieceArr(ePlayerSide i_Side, int i_BoardSize)
         {
-            int numOfRows = i_NumOfPieces / 4;
-
-            Piece[] piecesArr = buildStartArr(i_Type, i_NumOfPieces, numOfRows);
-            // num of rows depends on the amount of pieces 8 pieces->2 rows, 12 pieces ->3 rows, 16 pieces ->4 rows
-        }
-
-        private Piece[] buildStartArr(ePlayerSide i_Type, int i_Pieces, int i_NumOfRows)
-        {
-            int k = 0;
-            Piece[] piecesArr = new Piece[i_Pieces];
-
-            while (k < i_Pieces)
+            int numOfPieces = (i_BoardSize / 2) * (i_BoardSize - 1);
+            m_Pieces = new Piece[numOfPieces];
+            int endRow, startRow, piecesIndex = 0;
+            if(i_Side == ePlayerSide.Up)
             {
-                for (int i = i_StartRow; i < i_EndRow; i++)
+                startRow = 0;
+                endRow = (i_BoardSize / 2) - 1;
+            }
+            else //i_Side=Down
+            {
+                startRow = (i_BoardSize / 2) - 1;
+                endRow = i_BoardSize;
+            }
+
+            while(piecesIndex < numOfPieces)
+            {
+                for(int i = startRow; i < endRow; i++)
                 {
-                    for (int j = 0; j < m_Size; j++)
+                    for(int j = 0; j < i_BoardSize; j++)
                     {
-                        if ((j % 2 == 1) && (i % 2 == 0))
+                        if((j % 2 == 1) && (i % 2 == 0))
                         {
                             Point locationPoint = new Point(i, j);
-                            Piece boardPiece = new Piece(locationPoint, i_Type);
-                            m_Board[i, j].piecePointer = boardPiece;
-                            piecesArr[k].Location.X = i;
-
-                            k++;
+                            Piece boardPiece = new Piece(locationPoint, i_Side);
+                            m_Pieces[piecesIndex] = boardPiece;
+                            piecesIndex++;
                         }
 
-                        if ((j % 2 == 0) && (i % 2 == 1))
+                        if((j % 2 == 0) && (i % 2 == 1))
                         {
                             Point locationPoint = new Point(i, j);
-                            Piece boardPiece = new Piece(locationPoint, i_Type);
-                            m_Board[i, j].piecePointer = boardPiece;
+                            Piece boardPiece = new Piece(locationPoint, i_Side);
+                            m_Pieces[piecesIndex] = boardPiece;
+                            piecesIndex++;
                         }
                     }
                 }
@@ -82,6 +80,27 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             get
             {
                 return m_Side;
+            }
+        }
+        public Piece[] Pieces
+        {
+            get
+            {
+                return PiecesArr;
+            }
+        }
+        public int TotalScore
+        {
+            get
+            {
+                return m_TotalScore;
+            }
+            set
+            {
+                if(value >= 0)
+                {
+                    m_TotalScore = value;
+                }
             }
         }
         public bool IsAi
