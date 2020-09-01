@@ -6,20 +6,19 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
     public class Game
     {
         // Private Members
-        private readonly string r_PlayerOneName;
-        private readonly string r_PlayerTwoName;
+        private Player m_Player1;
+        private Player m_Player2;
         private Board m_Board;
         private string m_LastMove;
         int m_TurnCount;
-        private int m_PlayerOneTotalScore = 0;
-        private int m_PlayerTwoTotalScore = 0;
+       
 
         // Constructors
-        public Game(string i_PlayerOneName, string i_PlayerTwoName, int i_BoardSize)
+        public Game(Player i_Player1, Player i_Player2, Board i_Board)
         {
-            r_PlayerOneName = i_PlayerOneName;
-            r_PlayerTwoName = i_PlayerTwoName;
-            m_Board = new Board(i_BoardSize);
+            m_Player1 = i_Player1;
+            m_Player1 = i_Player2;
+            m_Board = i_Board;
             m_LastMove = null;          // @Eli- how did you saved the last move? string?
         }
 

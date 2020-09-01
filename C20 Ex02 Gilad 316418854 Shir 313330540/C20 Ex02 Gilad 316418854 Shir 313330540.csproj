@@ -54,6 +54,7 @@
     <Compile Include="Board.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="InputValidator.cs" />
+    <Compile Include="Piece.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Round.cs" />
@@ -71,6 +72,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
