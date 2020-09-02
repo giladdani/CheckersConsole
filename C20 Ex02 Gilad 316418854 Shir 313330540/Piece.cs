@@ -5,26 +5,20 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
 {
     public class Piece
     {
-        private Boolean m_IsKing;
-        private Boolean m_IsCaptured;
+        private bool m_IsKing;
+        private bool m_IsCaptured;
         private Point m_Location;
-        private readonly Player.ePlayerSide m_Type;//TODO : should it be readonly?
+        private readonly ePlayerSide r_Type;
 
-        public Piece()
-        {
-            m_IsKing = false;
-            m_IsCaptured = false;
-           
-        }
-        public Piece(Point i_Location, Player.ePlayerSide i_Type)
+        public Piece(Point i_Location, ePlayerSide i_Type)
         {
             m_IsKing = false;
             m_IsCaptured = false;
             m_Location = i_Location;
-            m_Type = i_Type;
+            r_Type = i_Type;
         }
 
-        public Player.ePlayerSide Type
+        public ePlayerSide Type
         {
             get
             {
@@ -33,10 +27,16 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         }
         public Point Location
         {
-            get => m_Location;
-            set => m_Location = value;
+            get
+            {
+                return m_Location;
+            }
+            set
+            {
+                m_Location = value;
+            }
         }
-        public Boolean IsKing
+        public bool IsKing
         {
             get => m_IsKing;
             set
@@ -47,10 +47,12 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                 }
             }
         }
-
-        public Boolean IsCaptured
+        public bool IsCaptured
         {
-            get => m_IsCaptured;
+            get
+            {
+                return m_IsCaptured;
+            }
             set
             {
                 if (value == true)
@@ -60,8 +62,6 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             }
         }
     }
-
-
 }
 
 

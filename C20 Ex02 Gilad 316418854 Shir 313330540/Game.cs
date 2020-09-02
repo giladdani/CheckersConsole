@@ -1,88 +1,133 @@
 ﻿using System;
-using System.Runtime.Remoting.Messaging;
 
 namespace C20_Ex02_Gilad_316418854_Shir_313330540
 {
     public class Game
     {
         // Private Members
-        private Player m_Player1;
-        private Player m_Player2;
+        private Player m_PlayerOne;
+        private Player m_PlayerTwo;
+        private Player m_LastPlayer;
         private Board m_Board;
-        private string m_LastMove;
-        int m_TurnCount;
-       
+        private bool m_AiMode;
+        private int m_TurnCount;
 
         // Constructors
-        public Game(Player i_Player1, Player i_Player2, Board i_Board)
+        public Game(string i_PlayerOneName, string i_PlayerTwoName, int i_BoardSize, bool i_AiMode)
         {
-            m_Player1 = i_Player1;
-            m_Player1 = i_Player2;
-            m_Board = i_Board;
-            m_LastMove = null;          // @Eli- how did you saved the last move? string?
+            m_PlayerOne = new Player(i_PlayerOneName, ePlayerSide.Up, i_BoardSize, false);
+            m_PlayerTwo = new Player(i_PlayerTwoName, ePlayerSide.Down, i_BoardSize, i_AiMode);
+            m_Board = new Board(i_BoardSize);
+            m_AiMode = i_AiMode;
         }
 
         // Public Methods
-        public void StartNewRound()
+        // Setup each player's piece's position
+        public void SetPiecesStartingPositions()
         {
-            m_Board.BuildBoard();
-            m_TurnCount = 1;
-            while (!IsRoundOver())
+            m_Board.SetPiecesPosition(m_PlayerOne);
+            m_Board.SetPiecesPosition(m_PlayerTwo);
+        }
+
+        // Execute the given move
+        public void ExecuteMove(string i_Move)
+        {
+            if(i_Move != "Q")
             {
-                UiManager.SetNextTurn();
-                m_TurnCount++;
+                // TODO
+                TurnCount++;
             }
+        }
+
+        // Returns true if the game is over
+        public bool IsGameOver()
+        {
+            bool isOver = false;
+            // check number of pieces of each player
+            // check if last move was "Q"
+
         }
 
         // Properties
-        public string PlayerOneName
+        public Player PlayerOne
         {
             get
             {
-                return r_PlayerOneName;
-            }
-
-        }
-
-        public string PlayerTwoName
-        {
-            get
-            {
-                return r_PlayerTwoName; 
+                return m_PlayerOne;
             }
         }
-
-        public string LastMove
+        public Player PlayerTwo
         {
             get
             {
-                return m_LastMove;
+                return m_PlayerTwo; 
             }
         }
-
-        public string CurrentPlayerName
+        public Player CurrentPlayer
         {
             get
             {
-                string name;
+                Player player;
                 if (m_TurnCount % 2 == 0)
                 {
-                    name = PlayerTwoName;
+                    player = m_PlayerTwo;
                 }
                 else
                 {
-                    name = PlayerOneName;
+                    player = m_PlayerOne;
                 }
 
-                return name;
+                return player;
             }
         }
-
+        public Player LastPlayer
+        {
+            get
+            {
+                return m_LastPlayer;
+            }
+        }
         public Board Board
         {
             get
             {
                 return m_Board;
+            }
+        }
+        public int TurnCount
+        {
+            get
+            {
+                return m_TurnCount;
+            }
+            set
+            {
+                if(value > 0)
+                {
+                    m_TurnCount = value;
+                }
+            }
+        }
+        public bool AiMode
+        {
+            get
+            {
+                return m_AiMode;
+            }
+            set
+            {
+                m_AiMode = value;
+            }
+        }
+        public bool IsOver
+        {
+            get
+            {
+                return m_IsOver;
+            }
+            set
+            {
+                m_IsOver = value;
             }
         }
     }

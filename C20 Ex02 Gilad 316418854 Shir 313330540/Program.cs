@@ -4,11 +4,9 @@
     {
         public static void Main()
         {
-            Game game = new Game();
-            UiManager uiManager = new UiManager(game);
-            uiManager.initGameSettings();
-            game.StartNewRound();
-            //shir loves giving cakes to gilad
+            UiManager gameInterface = new UiManager();
+            gameInterface.CreateGame();
+            gameInterface.StartRound();
         }
     }
 }
