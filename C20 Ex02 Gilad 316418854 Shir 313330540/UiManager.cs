@@ -22,19 +22,26 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         // Start a new round of the game
         public void StartRound()
         {
+            string lastMove = string.Empty;
             m_CurrentGame.Board.Build();
             m_CurrentGame.TurnCount = 1;
             m_CurrentGame.SetPiecesStartingPositions();
             while (!m_CurrentGame.IsOver())
             {
-                Ex02.ConsoleUtils.Screen.Clear();
-                printBoard();
+                reprintBoard();
                 if(m_CurrentGame.TurnCount > 1)
                 {
-                    printLastTurnMessage();
+                    printLastTurnMessage(lastMove);
                 }
-                Move currentMove = getMove();
-                m_CurrentGame.ExecuteMove(currentMove);
+
+                Move currentMove = getMove(out lastMove);
+                eMoveFeedback moveFeedback = m_CurrentGame.ExecuteMove(currentMove);
+                while(moveFeedback != eMoveFeedback.Success && moveFeedback != eMoveFeedback.Quit)
+                {
+                    printFeedback(moveFeedback);
+                    currentMove = getMove(out lastMove);
+                    moveFeedback = m_CurrentGame.ExecuteMove(currentMove);
+                }
             }
 
             m_CurrentGame.CalculateScores();        // TODO
@@ -50,7 +57,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
 
         // Private Methods
         // Gets a move from the user    TODO
-        private Move getMove()
+        private Move getMove(out string o_moveString)
         {
             //if (m_CurrentGame.CurrentPlayer.IsAi)
             //{
@@ -70,9 +77,33 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                     moveString = Console.ReadLine();
                 }
             //}
-
+            o_moveString = moveString;
             Move move = new Move(moveString);
             return move;
+        }
+
+        private void printFeedback(eMoveFeedback i_MoveFeedback)
+        {
+            switch (i_MoveFeedback)
+            {
+                case eMoveFeedback.FailedCouldCapture:
+                    {
+                        Console.WriteLine("Failed, you can capture!");
+                        break;
+                    }
+                case eMoveFeedback.CanDoubleCapture:
+                    {
+
+                        reprintBoard();
+                        Console.WriteLine("You can double capture! play another turn.");
+                        break;
+                    }
+                case eMoveFeedback.Failed:
+                    {
+                        Console.WriteLine("Invalid move. try again.");
+                        break;
+                    }
+            }
         }
 
         // Print final players Scores
@@ -96,13 +127,19 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         }
 
         // Prints the last players name with it's last move
-        private void printLastTurnMessage()
+        private void printLastTurnMessage(string i_LastMove)
         {
             StringBuilder lastTurnMessage = new StringBuilder(m_CurrentGame.LastPlayer.Name);
             lastTurnMessage.Append("'s move was ");
             lastTurnMessage.Append(m_CurrentGame.LastPlayer.Side == ePlayerSide.Down ? "(X):" : "(O):");
-            lastTurnMessage.Append(m_CurrentGame.LastPlayer.LastTurn);
+            lastTurnMessage.Append(i_LastMove);
             Console.WriteLine(lastTurnMessage);
+        }
+
+        private void reprintBoard()
+        {
+            Ex02.ConsoleUtils.Screen.Clear();
+            printBoard();
         }
 
         // Returns a valid name from user input

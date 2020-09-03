@@ -14,7 +14,6 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         private List<Piece> m_Pieces;
         private int m_TotalScore;
         private bool m_IsAi;
-        private string m_LastTurn;
         private int m_PiecesLeft;
         
         // Constructors
@@ -24,7 +23,6 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             m_Side = i_Side;
             m_IsAi = i_IsAi;
             m_TotalScore = 0;
-            m_LastTurn = "Empty";       // TODO find a better solution for this
             initPieceArr(i_Side, i_BoardSize);
         }
 
@@ -162,17 +160,6 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             set
             {
                 m_IsAi = value;
-            }
-        }
-        public string LastTurn
-        {
-            get
-            {
-                return m_LastTurn;
-            }
-            set
-            {
-                m_LastTurn = value;
             }
         }
         public int PiecesLeft
