@@ -96,6 +96,11 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             return isOver;
         }
 
+        public void CalculateScores()
+        {
+
+        }
+
         // Properties
         public Player PlayerOne
         {

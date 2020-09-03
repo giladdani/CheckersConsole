@@ -17,6 +17,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         }
 
         // Public Methods
+        // Initialize a new empty board
         public void Build()
         {
             m_GameBoard = new Square[m_Size, m_Size];
@@ -29,6 +30,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             }
         }
 
+        // Places the given player's pieces on the board
         public void SetPiecesPosition(Player i_Player)
         {
             foreach(Piece piece in i_Player.Pieces)
@@ -39,7 +41,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             }
         }
        
-        //public void makeMove(Piece i_Piece, Point i_To)
+        //public void makeMove(Piece i_Piece, Point i_To)       // TODO delete? ask shir
         //{
         //    m_Board[i_Piece.Location.X, i_Piece.Location.Y].PiecePointer = null;
         //    // the piece pointer that this square had will be null now
@@ -48,7 +50,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         //    //update the piece pointer in the new piece it have
         //}
 
-        //version #2
+        // Update the board of moving piece
         public void makeMove(Player i_Player,int i_PieceIndex, Point i_To)
         {
             m_GameBoard[i_Player.Pieces[i_PieceIndex].Location.X, i_Player.Pieces[i_PieceIndex].Location.Y].PiecePointer = null;

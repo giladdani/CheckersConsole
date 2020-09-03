@@ -29,10 +29,15 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             {
                 Ex02.ConsoleUtils.Screen.Clear();
                 printBoard();
+                if(m_CurrentGame.TurnCount > 1)
+                {
+                    printLastTurnMessage();
+                }
                 Move currentMove = getMove();
                 m_CurrentGame.ExecuteMove(currentMove);
             }
-            // TODO calculate score and sum it to total score
+
+            m_CurrentGame.CalculateScores();        // TODO
             if(playAgain())
             {
                 StartRound();
