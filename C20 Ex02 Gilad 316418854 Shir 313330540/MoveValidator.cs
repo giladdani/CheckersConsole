@@ -45,22 +45,24 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         {
             bool captureMovePossible = false;
 
-            if (i_Board.GameBoard[i_Piece.Location.X + i_Direction, i_Piece.Location.Y - i_Direction].PiecePointer.Side == GetOtherSide(i_Side))
+            if (i_Board.GameBoard[i_Piece.Location.X + i_Direction, i_Piece.Location.Y - i_Direction].PiecePointer != null)
             {
-                if (i_Board.GameBoard[i_Piece.Location.X + 2 * i_Direction, i_Piece.Location.Y - 2 * i_Direction] == null)
+                if (i_Board.GameBoard[i_Piece.Location.X + i_Direction, i_Piece.Location.Y - i_Direction].PiecePointer.Side == GetOtherSide(i_Side))
                 {
-                    captureMovePossible = true;
+                    if (i_Board.GameBoard[i_Piece.Location.X + 2 * i_Direction, i_Piece.Location.Y - 2 * i_Direction] == null)
+                    {
+                        captureMovePossible = true;
+                    }
+                }
+
+                if (i_Board.GameBoard[i_Piece.Location.X + i_Direction, i_Piece.Location.Y + i_Direction].PiecePointer.Side == GetOtherSide(i_Side))
+                {
+                    if (i_Board.GameBoard[i_Piece.Location.X + 2 * i_Direction, i_Piece.Location.Y + 2 * i_Direction] == null)
+                    {
+                        captureMovePossible = true;
+                    }
                 }
             }
-
-            if (i_Board.GameBoard[i_Piece.Location.X + i_Direction, i_Piece.Location.Y + i_Direction].PiecePointer.Side == GetOtherSide(i_Side))
-            {
-                if (i_Board.GameBoard[i_Piece.Location.X + 2 * i_Direction, i_Piece.Location.Y + 2 * i_Direction] == null)
-                {
-                    captureMovePossible = true;
-                }
-            }
-
             return captureMovePossible;
         }
 
@@ -103,28 +105,32 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             bool possible = false;
 
             // check valid move for regular piece
-            if (i_Board.GameBoard[i_Move.XFrom, i_Move.YFrom].PiecePointer.IsKing == false)
+            if (i_Board.GameBoard[i_Move.XFrom, i_Move.YFrom].PiecePointer != null)
             {
-                if (i_Player.Side == ePlayerSide.Down)
+                if (i_Board.GameBoard[i_Move.XFrom, i_Move.YFrom].PiecePointer.IsKing == false)
                 {
-                    possible = IsMoveDiagonalLine(ePlayerSide.Down, i_Move, (int)ePlayerMoves.MoveUp);
+                    if (i_Player.Side == ePlayerSide.Down)
+                    {
+                        possible = IsMoveDiagonalLine(ePlayerSide.Down, i_Move, (int)ePlayerMoves.MoveUp);
+                    }
+
+                    if (i_Player.Side == ePlayerSide.Up)
+                    {
+                        possible = IsMoveDiagonalLine(ePlayerSide.Up, i_Move, (int)ePlayerMoves.MoveDown);
+                    }
                 }
 
-                if (i_Player.Side == ePlayerSide.Up)
+            
+
+                // check valid move for king piece
+                if (i_Board.GameBoard[i_Move.XFrom, i_Move.YFrom].PiecePointer.IsKing)
                 {
-                    possible = IsMoveDiagonalLine(ePlayerSide.Up, i_Move, (int)ePlayerMoves.MoveDown);
+                    if (IsKingMoveDiagonalLine(i_Player, i_Move))
+                    {
+                        possible = true;
+                    }
                 }
             }
-
-            // check valid move for king piece
-            if (i_Board.GameBoard[i_Move.XFrom, i_Move.YFrom].PiecePointer.IsKing)
-            {
-                if (IsKingMoveDiagonalLine(i_Player, i_Move))
-                {
-                    possible = true;
-                }
-            }
-
             return possible;
         }
 
@@ -227,30 +233,36 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         public static bool IsDoubleCaptureMovePossiblePerSide(ePlayerSide i_Side, Board i_Board, int i_Direction, Move i_Move)
         {
             bool doubleCaptureMove = false;
-          
+
             if (IsInBorders(i_Board, i_Move.XTo + i_Direction, i_Move.YTo - i_Direction))
             {
-                if (i_Board.GameBoard[i_Move.XTo + i_Direction, i_Move.YTo - i_Direction].PiecePointer.Side == GetOtherSide(i_Side))
-                {
-                    if (IsInBorders(i_Board, i_Move.XTo + 2 * i_Direction, i_Move.YTo - 2 * i_Direction))
+                if (i_Board.GameBoard[i_Move.XTo + i_Direction, i_Move.YTo - i_Direction].PiecePointer != null)
+                { 
+                    if (i_Board.GameBoard[i_Move.XTo + i_Direction, i_Move.YTo - i_Direction].PiecePointer.Side == GetOtherSide(i_Side))
                     {
-                        if (i_Board.GameBoard[i_Move.XTo + 2 * i_Direction, i_Move.YTo - 2 * i_Direction] == null)
+                        if (IsInBorders(i_Board, i_Move.XTo + 2 * i_Direction, i_Move.YTo - 2 * i_Direction))
                         {
-                            doubleCaptureMove = true;
+                            if (i_Board.GameBoard[i_Move.XTo + 2 * i_Direction, i_Move.YTo - 2 * i_Direction] == null)
+                            {
+                                doubleCaptureMove = true;
+                            }
                         }
                     }
                 }
             }
-                
-            if (IsInBorders(i_Board, i_Move.XTo + i_Direction, i_Move.YTo + i_Direction)) 
+
+            if (IsInBorders(i_Board, i_Move.XTo + i_Direction, i_Move.YTo + i_Direction))
             {
-                if (i_Board.GameBoard[i_Move.XTo + i_Direction, i_Move.YTo + i_Direction].PiecePointer.Side == GetOtherSide(i_Side))
+                if (i_Board.GameBoard[i_Move.XTo + i_Direction, i_Move.YTo + i_Direction].PiecePointer != null)
                 {
-                    if (IsInBorders(i_Board, i_Move.XTo + 2 * i_Direction, i_Move.YTo + 2 * i_Direction))
+                    if (i_Board.GameBoard[i_Move.XTo + i_Direction, i_Move.YTo + i_Direction].PiecePointer.Side == GetOtherSide(i_Side))
                     {
-                        if (i_Board.GameBoard[i_Move.XTo + 2 * i_Direction, i_Move.YTo + 2 * i_Direction] == null)
+                        if (IsInBorders(i_Board, i_Move.XTo + 2 * i_Direction, i_Move.YTo + 2 * i_Direction))
                         {
-                            doubleCaptureMove = true;
+                            if (i_Board.GameBoard[i_Move.XTo + 2 * i_Direction, i_Move.YTo + 2 * i_Direction] == null)
+                            {
+                                doubleCaptureMove = true;
+                            }
                         }
                     }
                 }
@@ -292,5 +304,6 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
 
             return inBorders;
         }
+       
     }
 }
