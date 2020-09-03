@@ -22,8 +22,8 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             {
                 m_XFrom = i_Move[1] - 'a';
                 m_YFrom = i_Move[0] - 'A';
-                m_XTo = i_Move[3] - 'a';
-                m_YTo = i_Move[2] - 'A';
+                m_XTo = i_Move[3] - 'A';
+                m_YTo = i_Move[4] - 'a';
             }
         }
 

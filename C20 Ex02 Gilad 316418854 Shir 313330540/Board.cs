@@ -31,11 +31,11 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
 
         public void SetPiecesPosition(Player i_Player)
         {
-            foreach(Piece t in i_Player.Pieces)
+            foreach(Piece piece in i_Player.Pieces)
             {
-                int x = t.Location.X;
-                int y = t.Location.Y;
-                m_GameBoard[x, y].PiecePointer = t;
+                int x = piece.Location.X;
+                int y = piece.Location.Y;
+                m_GameBoard[x, y].PiecePointer = piece;
             }
         }
        

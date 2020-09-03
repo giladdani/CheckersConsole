@@ -6,6 +6,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
 {
     public class Piece
     {
+        // Private Members
         private readonly ePlayerSide r_Side;
         private bool m_IsKing;
         private bool m_IsCaptured;
@@ -21,17 +22,10 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         }
 
         // Public Methods
-        public Move GetPossibleMove(Board i_CurrentBoard)
-        {
-            if(r_Side == ePlayerSide.Up)
-            {
-                
-            }
-            else
-            {
-
-            }
-        }
+        //public bool HasPossibleMoves(Board i_CurrentBoard)
+        //{
+        //    return (MoveValidator.IsPieceHavePossibleMove(i_CurrentBoard));     // TODO
+        //}
 
         // Properties
         public ePlayerSide Side

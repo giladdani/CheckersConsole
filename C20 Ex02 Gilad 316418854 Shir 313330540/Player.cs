@@ -73,49 +73,49 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
 
         // Public Methods
         // Returns true if the player has any possible move to play
-        public bool HasPossibleMoves(Board i_CurrentBoard)
-        {
-            bool hasMove = false;
+        //public bool HasPossibleMoves(Board i_CurrentBoard)        TODO
+        //{
+        //    bool hasMove = false;
 
-            foreach(Piece piece in m_Pieces)
-            {
-                // if piece can move/capture
-                if(MoveValidator.IsSimpleMovePossible(this, i_CurrentBoard, piece) || MoveValidator.IsCaptureMovePossible(this, i_CurrentBoard, piece))
-                {
-                    hasMove = true;
-                }
-            }
+        //    foreach(Piece piece in m_Pieces)
+        //    {
+        //        // if piece can move/capture
+        //        if(piece.HasPossibleMoves(i_CurrentBoard));
+        //        {
+        //            hasMove = true;
+        //        }
+        //    }
 
-            return hasMove;
-        }
+        //    return hasMove;
+        //}
 
         // Returns a random generated move for the player
-        public Move GenerateRandomMove(Board i_CurrentBoard)
-        {
-            foreach(Piece piece in m_Pieces)
-            {
-                if(piece.IsKing)
-                {
-                    if(MoveValidator.IsKingCapturePossible(this, i_CurrentBoard, piece))
-                    {
-                        move = piece.GetPossibleMove();
-                    }
+        //public Move GenerateRandomMove(Board i_CurrentBoard)       TODO
+        //{
+        //    foreach(Piece piece in m_Pieces)
+        //    {
+        //        if(piece.IsKing)
+        //        {
+        //            if(MoveValidator.IsKingCapturePossible(this, i_CurrentBoard, piece))
+        //            {
+        //                move = piece.GetPossibleMove();
+        //            }
                     
-                }
-                else
-                {
-                    if(MoveValidator.IsCapturePossible(this, i_CurrentBoard, piece))
-                    {
+        //        }
+        //        else
+        //        {
+        //            if(MoveValidator.IsCapturePossible(this, i_CurrentBoard, piece))
+        //            {
 
-                    }
-                    //else if( piece can do simple move)
-                }
+        //            }
+        //            //else if( piece can do simple move)
+        //        }
 
-                Move move = piece.GetPossibleMove(i_CurrentBoard);
-            }
+        //        Move move = piece.GetPossibleMove(i_CurrentBoard);
+        //    }
             
-            return move;
-        }
+        //    return move;
+        //}
 
         // Properties
         public string Name

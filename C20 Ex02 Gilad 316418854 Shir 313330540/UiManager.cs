@@ -44,15 +44,15 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         }
 
         // Private Methods
-        // Gets a move from the user
+        // Gets a move from the user    TODO
         private Move getMove()
         {
-            if(m_CurrentGame.CurrentPlayer.IsAi)
-            {
-                Move move = m_CurrentGame.GenerateRandomMove();
-            }
-            else
-            {
+            //if (m_CurrentGame.CurrentPlayer.IsAi)
+            //{
+            //    Move move = m_CurrentGame.CurrentPlayer.GenerateRandomMove(m_CurrentGame.Board);
+            //}
+            //else
+            //{
                 StringBuilder turnMessage = new StringBuilder();
                 turnMessage.Append(m_CurrentGame.CurrentPlayer.Name);
                 turnMessage.Append("'s Turn ");
@@ -64,7 +64,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                     Console.Write("Invalid move format, try again: ");
                     moveString = Console.ReadLine();
                 }
-            }
+            //}
 
             Move move = new Move(moveString);
             return move;

@@ -73,7 +73,6 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                         }
                     }
                 }
-
             }
         }
 
@@ -82,13 +81,6 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         {
             bool isOver = false;
 
-            // If Last player quit
-            if (m_LastPlayer.LastTurn == "Q")
-            {
-                m_LastPlayer.PiecesLeft = 0;
-                isOver = true;
-            }
-
             // If a player has no pieces left
             if ((m_PlayerOne.PiecesLeft == 0 || m_PlayerTwo.PiecesLeft == 0) && m_TurnCount > 1)
             {
@@ -96,10 +88,10 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             }
 
             // If current player has no moves to play
-            if(!CurrentPlayer.HasPossibleMoves(m_Board))
-            {
-                isOver = true;
-            }
+            //if(!CurrentPlayer.HasPossibleMoves(m_Board))   TODO
+            //{
+            //    isOver = true;
+            //}
 
             return isOver;
         }
