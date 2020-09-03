@@ -7,24 +7,28 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
 {
     public class Piece
     {
+        private readonly ePlayerSide r_Side;
+        private Point m_Location;
         private bool m_IsKing;
         private bool m_IsCaptured;
         private Point m_Location;
         private readonly ePlayerSide r_Type;
 
-        public Piece(Point i_Location, ePlayerSide i_Type)
+        // Constructors
+        public Piece(Point i_Location, ePlayerSide i_Side)
         {
             m_IsKing = false;
             m_IsCaptured = false;
             m_Location = i_Location;
-            r_Type = i_Type;
+            r_Side = i_Side;
         }
 
-        public ePlayerSide Type
+        // Properties
+        public ePlayerSide Side
         {
             get
             {
-                return r_Type;
+                return r_Side;
             }
         }
         public Point Location
@@ -67,8 +71,6 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             }
         }
     }
-
-
 }
 
 

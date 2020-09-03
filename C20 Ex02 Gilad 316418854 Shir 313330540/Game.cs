@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 
 namespace C20_Ex02_Gilad_316418854_Shir_313330540
 {
@@ -34,15 +35,43 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         {
             if(i_Move != "Q")
             {
-                // TODO
+                // original place
+                int x = i_Move[1] - 97; //Ascii value of 'a'
+                int y = i_Move[0] - 65; //Ascii value of 'A'
+
+                Point moveToPoint = new Point((i_Move[3] - 97), i_Move[2] - 65);
+                int numOfPiecesCurrPlayer = CurrentPlayer.Pieces.Length;
+                int index=0;
+                // find the piece in the location from the receiving move
                 TurnCount++;
+                m_LastPlayer = CurrentPlayer;
+                while (numOfPiecesCurrPlayer != 0)
+                {
+                    if (CurrentPlayer.Pieces[index].Location.X == x && CurrentPlayer.Pieces[index].Location.Y == y)
+                    {
+                        CurrentPlayer.Pieces[index].Location = moveToPoint;
+                        m_Board.makeMove(CurrentPlayer, index, moveToPoint);
+                        return;
+                    }
+
+                    index++;
+                    numOfPiecesCurrPlayer--;
+                }
             }
+
         }
 
         // Returns true if the game is over
         public bool IsOver()
         {
-            return true;
+            bool isOver = false;
+            if (m_PlayerOne.Pieces.Length == 0 || m_PlayerTwo.Pieces.Length == 0 || m_LastPlayer.LastTurn == "Q")
+            {
+                isOver = true;
+
+            }
+
+            return isOver;
         }
 
         // Properties
@@ -114,6 +143,17 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             set
             {
                 m_AiMode = value;
+            }
+        }
+        public bool IsOver
+        {
+            get
+            {
+                return m_IsOver;
+            }
+            set
+            {
+                m_IsOver = value;
             }
         }
     }
