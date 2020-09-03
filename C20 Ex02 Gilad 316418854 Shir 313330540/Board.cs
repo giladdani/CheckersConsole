@@ -61,6 +61,16 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
 
         }
 
+        internal void makeCaptureMove(Player i_Player, Piece i_Piece, Point i_To)
+        {
+            m_GameBoard[i_Piece.Location.X, i_Piece.Location.Y].PiecePointer = null;
+            m_GameBoard[(i_Piece.Location.X+i_To.X)/2, (i_Piece.Location.Y+ i_To.Y)/2].PiecePointer.IsCaptured = true;
+            m_GameBoard[(i_Piece.Location.X + i_To.X) / 2, (i_Piece.Location.Y + i_To.Y) / 2].PiecePointer = null;
+            i_Piece.Location = i_To;
+            m_GameBoard[i_To.X, i_To.Y].PiecePointer = i_Piece;
+
+        }
+
         // Properties
         public int Size
         {

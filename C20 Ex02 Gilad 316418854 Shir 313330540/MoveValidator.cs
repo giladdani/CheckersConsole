@@ -169,7 +169,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             {
                 if (i_Player.Side == ePlayerSide.Down)
                 {
-                    if (i_Move.XFrom - 1 == i_Move.YTo + 1)
+                    if (i_Move.XFrom - 1 == i_Move.XTo + 1)
                     {
                         if (((i_Move.YFrom + 1) == (i_Move.YTo - 1)) || ((i_Move.YFrom - 1) == (i_Move.YTo + 1)))
                         {
@@ -179,7 +179,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                 }
                 else
                 {
-                    if (i_Move.XFrom + 1 == i_Move.YTo - 1)
+                    if (i_Move.XFrom + 1 == i_Move.XTo - 1)
                     {
                         if (((i_Move.YFrom + 1) == (i_Move.YTo - 1)) || ((i_Move.YFrom - 1) == (i_Move.YTo + 1)))
                         {
