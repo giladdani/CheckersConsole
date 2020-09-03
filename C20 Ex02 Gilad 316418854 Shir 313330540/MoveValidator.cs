@@ -7,7 +7,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
     {
        
         //Returns true if the the move without capture is possible
-        private static bool isSimpleMove(Player i_Player, Board i_Board, Move i_Move)
+        public static bool IsSimpleMove(Player i_Player, Board i_Board, Move i_Move)
         {
             bool simpleMove = false;
             if(i_Board.GameBoard[i_Move.XTo, i_Move.YTo] ==null)
@@ -20,7 +20,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             return simpleMove;
         }
 
-        private static bool isSimpleMovePossible(Player i_Player, Board i_Board, Move i_Move)
+        public static bool IsSimpleMovePossible(Player i_Player, Board i_Board, Move i_Move)
         {
             bool possible = false;
 
@@ -46,7 +46,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             return possible;
         }
 
-        private static bool isKingMoveDiagonalLine(Player i_Player, Move i_Move)
+        public static bool IsKingMoveDiagonalLine(Player i_Player, Move i_Move)
         {
             bool diagonalLine = ((i_Move.XTo == i_Move.XFrom - 1) || (i_Move.XTo == i_Move.XFrom + 1)) &&
                                 ((i_Move.YFrom == i_Move.YFrom + 1) || (i_Move.YTo == i_Move.YTo - 1));
@@ -55,7 +55,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         }
 
         // check if move is diagonal, only if there is no capture and the piece is not a king
-        private static bool isMoveDiagonalLine(Player i_Player, Move i_Move)
+        public static bool IsMoveDiagonalLine(Player i_Player, Move i_Move)
         {
             bool diagonalLine = false;
             if (i_Player.Side == ePlayerSide.Down)
@@ -77,20 +77,20 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         }
 
         //Returns true if the the move with capture is possible
-        private static bool isCaptureMove(Player i_Player, Board i_Board, Move i_Move)
+        public static bool IsCaptureMove(Player i_Player, Board i_Board, Move i_Move)
         {
             bool captureMove = false;
             if (i_Board.GameBoard[i_Move.XTo, i_Move.YTo] == null)
             { 
                 if (Math.Abs(i_Move.XTo - i_Move.XFrom) == 2)
                 {
-                    captureMove = (isKingCapturePossible(i_Player, i_Board, i_Move) || IsCaptureMovePossible(i_Player, i_Board, i_Move));
+                    captureMove = (IsKingCapturePossible(i_Player, i_Board, i_Move) || IsCaptureMovePossible(i_Player, i_Board, i_Move));
                 }
             }
             return captureMove;
         }
 
-        private static bool IsCaptureMovePossible(Player i_Player, Board i_Board, Move i_Move)
+        public static bool IsCaptureMovePossible(Player i_Player, Board i_Board, Move i_Move)
         {
             bool captureMovePossible = false;
 
@@ -108,7 +108,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             return captureMovePossible;
         }
 
-        private static bool IsCaptureMovePossiblePerSide(ePlayerSide i_Side, Board i_Board, int i_Direction, Move i_Move)
+        public static bool IsCaptureMovePossiblePerSide(ePlayerSide i_Side, Board i_Board, int i_Direction, Move i_Move)
         {
            
             bool captureMovePossible = false;
@@ -134,7 +134,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             return captureMovePossible;
         }
 
-        private static bool isDoubleCaptureMove(Player i_Player, Board i_Board, Move i_Move)
+        public static bool IsDoubleCaptureMove(Player i_Player, Board i_Board, Move i_Move)
         {
             bool doubleCaptureMove = false;
 
@@ -144,7 +144,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             return doubleCaptureMove;
         }
 
-        private static bool isDoubleCaptureSimpleMove(Player i_Player, Board i_Board, Move i_Move)
+        public static bool IsDoubleCaptureSimpleMove(Player i_Player, Board i_Board, Move i_Move)
         {
             bool DoublecaptureMove = false;
             if (i_Player.Side == ePlayerSide.Down)
@@ -159,7 +159,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             return DoublecaptureMove;
         }
 
-        private static bool isKingDoubleCaptureSimpleMove(Player i_Player, Board i_Board, Move i_Move)
+        public static bool IsKingDoubleCaptureSimpleMove(Player i_Player, Board i_Board, Move i_Move)
         {
             bool DoublecaptureMove = false;
             if (i_Player.Side == ePlayerSide.Down)
@@ -174,7 +174,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             return DoublecaptureMove;
         }
 
-        private static bool IsDoubleCaptureMovePossiblePerSide(ePlayerSide i_Side, Board i_Board, int i_Direction, Move i_Move)
+        public static bool IsDoubleCaptureMovePossiblePerSide(ePlayerSide i_Side, Board i_Board, int i_Direction, Move i_Move)
         {
 
             bool DoublecaptureMove = false;
@@ -210,7 +210,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
 
         }
  
-        private static ePlayerSide GetOtherSide(ePlayerSide i_Side)
+        public static ePlayerSide GetOtherSide(ePlayerSide i_Side)
         {
             ePlayerSide side;
            if(i_Side==ePlayerSide.Down)
@@ -224,7 +224,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             return side;
         }
 
-        private static bool isKingCapturePossible(Player i_Player, Board i_Board, Move i_Move)
+        public static bool IsKingCapturePossible(Player i_Player, Board i_Board, Move i_Move)
         {
             bool KingcapturePossible = false;
 
@@ -242,7 +242,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             return KingcapturePossible;
         }
 
-        private static bool IsInBorders( Board i_Board, int i_X, int i_Y)
+        public static bool IsInBorders( Board i_Board, int i_X, int i_Y)
         {
             bool inBorders=false;
             if (i_X< i_Board.Size && i_Y < i_Board.Size)

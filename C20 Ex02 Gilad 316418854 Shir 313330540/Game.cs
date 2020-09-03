@@ -35,7 +35,8 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         {
             if(!i_Move.IsQuit)
             {
-                Point moveToPoint = new Point((i_Move.XTo - 97), i_Move.YTo - 65);
+                bool captureMove = MoveValidator.IsCaptureMove(CurrentPlayer, m_Board, i_Move);
+                Point moveToPoint = new Point((i_Move.XTo - 'a'), i_Move.YTo - 'A');
                 int numOfPiecesCurrPlayer = CurrentPlayer.Pieces.Length;
                 int index = 0;
                 // find the piece in the location from the receiving move
