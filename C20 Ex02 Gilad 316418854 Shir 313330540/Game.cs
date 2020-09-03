@@ -30,43 +30,48 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             m_Board.SetPiecesPosition(m_PlayerTwo);
         }
 
-        // Execute the given move
-        public void ExecuteMove(Move i_Move)
+        // Execute the given move, returns true if it was executed successfully
+        public eMoveFeedback ExecuteMove(Move i_Move)
         {
-           
+            eMoveFeedback moveFeedback = eMoveFeedback.Failed;
+
             if (!i_Move.IsQuit)
             {
+                // simple move
                 if (MoveValidator.IsSimpleMove(CurrentPlayer, m_Board, i_Move))
                 {
                     if (MoveValidator.IsPlayerHasCapture(CurrentPlayer, m_Board))
                     {
-
-                        //user choose simple move, but he can choose Capture, ask for new move.
+                        moveFeedback = eMoveFeedback.FailedCouldCapture;
                     }
-                    else //Execute simple move
+                    else //Execute
                     {
-                        
-                         m_Board.makeMove(CurrentPlayer, m_Board.GameBoard[i_Move.XFrom,i_Move.YFrom].PiecePointer, new Point(i_Move.XTo, i_Move.YTo));
-                          
+                        m_Board.makeMove(CurrentPlayer, m_Board.GameBoard[i_Move.XFrom,i_Move.YFrom].PiecePointer, new Point(i_Move.XTo, i_Move.YTo));
+                        moveFeedback = eMoveFeedback.Success;
+                        m_LastPlayer = CurrentPlayer;
+                        m_TurnCount++;
                     }
                 }
                 // capture move
                 else if (MoveValidator.IsCaptureMovePossible(CurrentPlayer, m_Board, i_Move))
                 {
                     m_Board.makeCaptureMove(CurrentPlayer, m_Board.GameBoard[i_Move.XFrom, i_Move.YFrom].PiecePointer, new Point(i_Move.XTo, i_Move.YTo));
-                  
+                    moveFeedback = eMoveFeedback.Success;
+                    m_LastPlayer = CurrentPlayer;
+                    m_TurnCount++;
                     if (MoveValidator.IsDoubleCaptureMove(CurrentPlayer, m_Board, i_Move))
                     {
                         TurnCount--;
-                        // ask for another turn
+                        moveFeedback = eMoveFeedback.CanDoubleCapture;
                     }
-                        
                 }
-
-                
             }
-            TurnCount++;
-            m_LastPlayer = CurrentPlayer;
+            else  // move is "Q"
+            {
+                moveFeedback = eMoveFeedback.Quit;
+            }
+                
+            return moveFeedback;
         }
 
         // Returns true if the game is over
@@ -81,10 +86,10 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             }
 
             // If current player has no moves to play
-            //if(!CurrentPlayer.HasPossibleMoves(m_Board))   TODO
-            //{
-            //    isOver = true;
-            //}
+            if(!CurrentPlayer.HasPossibleMoves(m_Board))
+            {
+                isOver = true;
+            }
 
             return isOver;
         }
