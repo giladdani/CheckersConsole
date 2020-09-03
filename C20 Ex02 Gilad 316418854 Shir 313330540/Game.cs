@@ -40,12 +40,9 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         }
 
         // Returns true if the game is over
-        public bool IsGameOver()
+        public bool IsOver()
         {
-            bool isOver = false;
-            // check number of pieces of each player
-            // check if last move was "Q"
-
+            return true;
         }
 
         // Properties
@@ -117,17 +114,6 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             set
             {
                 m_AiMode = value;
-            }
-        }
-        public bool IsOver
-        {
-            get
-            {
-                return m_IsOver;
-            }
-            set
-            {
-                m_IsOver = value;
             }
         }
     }

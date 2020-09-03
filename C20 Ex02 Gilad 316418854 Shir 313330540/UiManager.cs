@@ -32,14 +32,14 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                 m_CurrentGame.ExecuteMove(currentMove);
             }
             // TODO calculate score and sum it to total score
-            printRoundScores();         // TODO
+            //printRoundScores();         // TODO
             if(playAgain())
             {
                 StartRound();
             }
             else
             {
-                printFinalScores();     // TODO
+                //printFinalScores();     // TODO
             }
         }
 
@@ -75,19 +75,13 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             return (bool.Parse(choiceString));
         }
 
-        // Prints the game's board in it's current state
-        private void printBoard()
-        {
-            // TODO
-        }
-
         public void printLastTurnMessage()
         {
-            StringBuilder lastTurnMessage = new StringBuilder(m_CurrentGame.LastPlayer);
-            lastTurnMessage.Append("'s move was ");
-            lastTurnMessage.Append(m_CurrentGame.LastPlayer.Side == ePlayerSide.Down ? "(X):" : "(O):");
-            lastTurnMessage.Append(m_CurrentGame.LastPlayer.LastTurn);
-            Console.WriteLine(lastTurnMessage);
+            //StringBuilder lastTurnMessage = new StringBuilder(m_CurrentGame.LastPlayer);
+            //lastTurnMessage.Append("'s move was ");
+            //lastTurnMessage.Append(m_CurrentGame.LastPlayer.Side == ePlayerSide.Down ? "(X):" : "(O):");
+            //lastTurnMessage.Append(m_CurrentGame.LastPlayer.LastTurn);
+            //Console.WriteLine(lastTurnMessage);
         }
 
         // Private Methods
@@ -138,6 +132,64 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             }
 
             return choice;
+        }
+
+        private void printBoard()
+        {
+            printColumnNames();
+            printRowSeparator();
+            for(int i = 0, rowChar = 'a'; i < m_CurrentGame.Board.Size; i++, rowChar++)
+            {
+                Console.Write((char)rowChar);
+                Console.Write(" | ");
+                for (int j = 0; j < m_CurrentGame.Board.Size; j++)
+                {
+                    if(m_CurrentGame.Board.Squares[i, j] == null)
+                    {
+                        Console.Write(" ");
+                        Console.Write(" | ");
+                    }
+                    else
+                    {
+                        if(m_CurrentGame.Board.Squares[i, j].PiecePointer.Type == ePlayerSide.Down)
+                        {
+                            Console.Write(m_CurrentGame.Board.Squares[i, j].PiecePointer.IsKing ? "K" : "X");
+                            Console.Write(" | ");
+                        }
+
+                        if (m_CurrentGame.Board.Squares[i, j].PiecePointer.Type == ePlayerSide.Up)
+                        {
+                            Console.Write(m_CurrentGame.Board.Squares[i, j].PiecePointer.IsKing ? "U" : "O");
+                            Console.Write(" | ");
+                        }
+                    }
+                }
+
+                printRowSeparator();
+            }
+        }
+
+        /// print the rows column names
+        private void printColumnNames()
+        {
+            for(int i = 0, columnChar = 'A'; i < m_CurrentGame.Board.Size; i++, columnChar++)
+            {
+                Console.Write("  ");
+                Console.Write(columnChar);
+                Console.Write("  ");
+            }
+        }
+
+        // Prints a line of equal signs to separate the rows
+        private void printRowSeparator()
+        {
+            int numOfSigns = (m_CurrentGame.Board.Size * 5) - (m_CurrentGame.Board.Size - 1);
+            for(int i = 0; i < numOfSigns; i++)
+            {
+                Console.Write("=");
+            }
+
+            Console.WriteLine();
         }
 
         // Properties

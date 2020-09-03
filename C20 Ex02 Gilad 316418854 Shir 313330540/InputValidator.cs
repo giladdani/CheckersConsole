@@ -20,7 +20,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         // Returns true if the given string represents a valid game mode choice
         public static bool IsValidGameType(string i_Choice)
         {
-            bool isValidNumber = Enum.TryParse(i_Choice, out int type);
+            bool isValidNumber = int.TryParse(i_Choice, out int type);
             return (isValidNumber && (type == 1 || type == 2));
         }
 

@@ -19,7 +19,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         // Public Methods
         public void Build()
         {
-            m_Board= new Square[m_Size, m_Size];
+            m_Board = new Square[m_Size, m_Size];
             for (int i = 0; i < m_Size; i++)
             {
                 for (int j = 0; j < m_Size; j++)
@@ -31,12 +31,11 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
 
         public void SetPiecesPosition(Player i_Player)
         {
-            int x, y;
             for (int i = 0; i < (m_Size / 2) * (m_Size - 1); i++)
             {
-                x = i_Player.PiecesArr[i].Location.X;
-                y = i_Player.PiecesArr[i].Location.Y;
-                m_Board[x,y].PiecePointer = i_Player.PiecesArr[i];
+                int x = i_Player.Pieces[i].Location.X;
+                int y = i_Player.Pieces[i].Location.Y;
+                m_Board[x,y].PiecePointer = i_Player.Pieces[i];
             }
         }
        
@@ -50,6 +49,13 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         }
 
         // Properties
+        public Square[,] Squares
+        {
+            get
+            {
+                return m_Board;
+            }
+        }
         public int Size
         {
             get
