@@ -46,33 +46,25 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                     }
                     else //Execute simple move
                     {
-                        for (int i = 0; i < CurrentPlayer.Pieces.Count; i++)
-                        {
-                            if (CurrentPlayer.Pieces[i].Location.X == i_Move.XFrom && CurrentPlayer.Pieces[i].Location.Y == i_Move.YFrom)
-                            {
-                                m_Board.makeMove(CurrentPlayer, i, new Point(i_Move.XTo, i_Move.YTo));
-                            }
-                        }
+                        
+                         m_Board.makeMove(CurrentPlayer, m_Board.GameBoard[i_Move.XFrom,i_Move.YFrom].PiecePointer, new Point(i_Move.XTo, i_Move.YTo));
+                          
                     }
                 }
                 // capture move
                 else if (MoveValidator.IsCaptureMovePossible(CurrentPlayer, m_Board, i_Move))
                 {
-                    for (int i = 0; i < CurrentPlayer.Pieces.Count; i++)
-                    {
-                        if (CurrentPlayer.Pieces[i].Location.X == i_Move.XFrom && CurrentPlayer.Pieces[i].Location.Y == i_Move.YFrom)
+                    m_Board.makeMove(CurrentPlayer, m_Board.GameBoard[i_Move.XFrom, i_Move.YFrom].PiecePointer, new Point(i_Move.XTo, i_Move.YTo));
+                        //TODO: 1. update other player pieces list, 
+                        //      2. delete from board
+                        if (MoveValidator.IsDoubleCaptureMove(CurrentPlayer, m_Board, i_Move))
                         {
-                            m_Board.makeMove(CurrentPlayer, i, new Point(i_Move.XTo, i_Move.YTo));
-                            //TODO: 1. update other player pieces list, 
-                            //      2. delete from board
-                            if (MoveValidator.IsDoubleCaptureMove(CurrentPlayer, m_Board, i_Move))
-                            {
-                                TurnCount--;
-                                // ask for another turn
-                            }
+                            TurnCount--;
+                            // ask for another turn
                         }
-                    }
+                        
                 }
+                
             }
         }
 

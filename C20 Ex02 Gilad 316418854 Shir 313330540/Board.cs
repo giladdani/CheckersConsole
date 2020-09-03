@@ -51,12 +51,12 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         //}
 
         // Update the board of moving piece
-        public void makeMove(Player i_Player,int i_PieceIndex, Point i_To)
+        public void makeMove(Player i_Player, Piece i_Piece, Point i_To)
         {
-            m_GameBoard[i_Player.Pieces[i_PieceIndex].Location.X, i_Player.Pieces[i_PieceIndex].Location.Y].PiecePointer = null;
+            m_GameBoard[i_Piece.Location.X, i_Piece.Location.Y].PiecePointer = null;
             // the piece pointer that this square had will be null now
-            i_Player.Pieces[i_PieceIndex].Location = i_To;// update piece location
-            m_GameBoard[i_To.X, i_To.Y].PiecePointer = i_Player.Pieces[i_PieceIndex];
+            i_Piece.Location = i_To;// update piece location
+            m_GameBoard[i_To.X, i_To.Y].PiecePointer = i_Piece;
             //update the piece pointer in the new piece it have
 
         }

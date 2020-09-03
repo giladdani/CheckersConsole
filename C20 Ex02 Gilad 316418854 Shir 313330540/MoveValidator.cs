@@ -45,7 +45,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         {
             bool captureMovePossible = false;
 
-            if (i_Board.GameBoard[i_Piece.Location.X + i_Direction, i_Piece.Location.Y - i_Direction].PiecePointer != null)
+            if (IsInBorders(i_Board, i_Piece.Location.X + i_Direction, i_Piece.Location.Y - i_Direction) && i_Board.GameBoard[i_Piece.Location.X + i_Direction, i_Piece.Location.Y - i_Direction].PiecePointer != null)
             {
                 if (i_Board.GameBoard[i_Piece.Location.X + i_Direction, i_Piece.Location.Y - i_Direction].PiecePointer.Side == GetOtherSide(i_Side))
                 {
@@ -55,11 +55,14 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                     }
                 }
 
-                if (i_Board.GameBoard[i_Piece.Location.X + i_Direction, i_Piece.Location.Y + i_Direction].PiecePointer.Side == GetOtherSide(i_Side))
+                if (IsInBorders(i_Board, i_Piece.Location.X + i_Direction, i_Piece.Location.Y + i_Direction) && i_Board.GameBoard[i_Piece.Location.X + i_Direction, i_Piece.Location.Y + i_Direction].PiecePointer != null)
                 {
-                    if (i_Board.GameBoard[i_Piece.Location.X + 2 * i_Direction, i_Piece.Location.Y + 2 * i_Direction].PiecePointer == null)
+                    if (i_Board.GameBoard[i_Piece.Location.X + i_Direction, i_Piece.Location.Y + i_Direction].PiecePointer.Side == GetOtherSide(i_Side))
                     {
-                        captureMovePossible = true;
+                        if (i_Board.GameBoard[i_Piece.Location.X + 2 * i_Direction, i_Piece.Location.Y + 2 * i_Direction].PiecePointer == null)
+                        {
+                            captureMovePossible = true;
+                        }
                     }
                 }
             }
@@ -297,7 +300,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         public static bool IsInBorders(Board i_Board, int i_X, int i_Y)
         {
             bool inBorders = false;
-            if (i_X < i_Board.Size && i_Y < i_Board.Size)
+            if (0 <= i_X && i_X < i_Board.Size && 0 <= i_Y && i_Y < i_Board.Size)
             {
                 inBorders = true;
             }
