@@ -31,7 +31,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         {
             bool isSeparatorValid = true;
             bool isLettersValid = true;
-            bool isLengthValid = i_Move.Length == 5;        //todo change 5 to define/const
+            bool isLengthValid = i_Move.Length == 5;        // TODO define 5?
             bool isQuitMove = (i_Move == "Q");
 
             if(isLengthValid)
