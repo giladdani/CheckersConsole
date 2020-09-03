@@ -49,9 +49,12 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             {
                 if (i_Board.GameBoard[i_Piece.Location.X + i_Direction, i_Piece.Location.Y - i_Direction].PiecePointer.Side == GetOtherSide(i_Side))
                 {
-                    if (i_Board.GameBoard[i_Piece.Location.X + 2 * i_Direction, i_Piece.Location.Y - 2 * i_Direction].PiecePointer == null)
+                    if (IsInBorders(i_Board, i_Piece.Location.X + 2 * i_Direction, i_Piece.Location.Y - 2 * i_Direction))
                     {
-                        captureMovePossible = true;
+                        if (i_Board.GameBoard[i_Piece.Location.X + 2 * i_Direction, i_Piece.Location.Y - 2 * i_Direction].PiecePointer == null)
+                        {
+                            captureMovePossible = true;
+                        }
                     }
                 }
 
@@ -59,10 +62,14 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                 {
                     if (i_Board.GameBoard[i_Piece.Location.X + i_Direction, i_Piece.Location.Y + i_Direction].PiecePointer.Side == GetOtherSide(i_Side))
                     {
-                        if (i_Board.GameBoard[i_Piece.Location.X + 2 * i_Direction, i_Piece.Location.Y + 2 * i_Direction].PiecePointer == null)
+                        if(IsInBorders(i_Board,i_Piece.Location.X + 2 * i_Direction, i_Piece.Location.Y + 2 * i_Direction))
                         {
-                            captureMovePossible = true;
+                            if (i_Board.GameBoard[i_Piece.Location.X + 2 * i_Direction, i_Piece.Location.Y + 2 * i_Direction].PiecePointer == null)
+                            {
+                                captureMovePossible = true;
+                            }
                         }
+                        
                     }
                 }
             }
@@ -169,7 +176,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             {
                 if (i_Player.Side == ePlayerSide.Down)
                 {
-                    if (i_Move.XFrom - 1 == i_Move.YTo + 1)
+                    if (i_Move.XFrom - 1 == i_Move.XTo + 1)
                     {
                         if (((i_Move.YFrom + 1) == (i_Move.YTo - 1)) || ((i_Move.YFrom - 1) == (i_Move.YTo + 1)))
                         {

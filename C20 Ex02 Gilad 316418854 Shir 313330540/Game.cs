@@ -75,6 +75,20 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             }
 
             return moveFeedback;
+                    m_Board.makeCaptureMove(CurrentPlayer, m_Board.GameBoard[i_Move.XFrom, i_Move.YFrom].PiecePointer, new Point(i_Move.XTo, i_Move.YTo));
+                  
+                    if (MoveValidator.IsDoubleCaptureMove(CurrentPlayer, m_Board, i_Move))
+                    {
+                        TurnCount--;
+                        // ask for another turn
+                    }
+                        
+                }
+
+                
+            }
+            TurnCount++;
+            m_LastPlayer = CurrentPlayer;
         }
 
         // Returns true if the game is over

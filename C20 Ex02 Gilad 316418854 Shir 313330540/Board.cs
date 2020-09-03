@@ -41,14 +41,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             }
         }
        
-        //public void makeMove(Piece i_Piece, Point i_To)       // TODO delete? ask shir
-        //{
-        //    m_Board[i_Piece.Location.X, i_Piece.Location.Y].PiecePointer = null;
-        //    // the piece pointer that this square had will be null now
-        //    i_Piece.Location = i_To;// update piece location
-        //    m_Board[i_To.X,i_To.Y].PiecePointer = i_Piece; 
-        //    //update the piece pointer in the new piece it have
-        //}
+       
 
         // Update the board of moving piece
         public void makeMove(Player i_Player, Piece i_Piece, Point i_To)
@@ -58,7 +51,25 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             i_Piece.Location = i_To;// update piece location
             m_GameBoard[i_To.X, i_To.Y].PiecePointer = i_Piece;
             //update the piece pointer in the new piece it have
+            if(i_To.X==0 || i_To.X==Size-1)
+            {
+                i_Piece.IsKing = true;
 
+            }
+        }
+
+        internal void makeCaptureMove(Player i_Player, Piece i_Piece, Point i_To)
+        {
+            m_GameBoard[i_Piece.Location.X, i_Piece.Location.Y].PiecePointer = null;
+            m_GameBoard[(i_Piece.Location.X+i_To.X)/2, (i_Piece.Location.Y+ i_To.Y)/2].PiecePointer.IsCaptured = true;
+            m_GameBoard[(i_Piece.Location.X + i_To.X) / 2, (i_Piece.Location.Y + i_To.Y) / 2].PiecePointer = null;
+            i_Piece.Location = i_To;
+            m_GameBoard[i_To.X, i_To.Y].PiecePointer = i_Piece;
+            if (i_To.X == 0 || i_To.X == Size - 1)
+            {
+                i_Piece.IsKing = true;
+
+            }
         }
 
         // Properties
