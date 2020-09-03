@@ -49,7 +49,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             {
                 if (i_Board.GameBoard[i_Piece.Location.X + i_Direction, i_Piece.Location.Y - i_Direction].PiecePointer.Side == GetOtherSide(i_Side))
                 {
-                    if (i_Board.GameBoard[i_Piece.Location.X + 2 * i_Direction, i_Piece.Location.Y - 2 * i_Direction] == null)
+                    if (i_Board.GameBoard[i_Piece.Location.X + 2 * i_Direction, i_Piece.Location.Y - 2 * i_Direction].PiecePointer == null)
                     {
                         captureMovePossible = true;
                     }
@@ -57,7 +57,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
 
                 if (i_Board.GameBoard[i_Piece.Location.X + i_Direction, i_Piece.Location.Y + i_Direction].PiecePointer.Side == GetOtherSide(i_Side))
                 {
-                    if (i_Board.GameBoard[i_Piece.Location.X + 2 * i_Direction, i_Piece.Location.Y + 2 * i_Direction] == null)
+                    if (i_Board.GameBoard[i_Piece.Location.X + 2 * i_Direction, i_Piece.Location.Y + 2 * i_Direction].PiecePointer == null)
                     {
                         captureMovePossible = true;
                     }
@@ -162,7 +162,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         {
             bool captureMove = false;
 
-            if (i_Board.GameBoard[i_Move.XTo, i_Move.YTo] == null)
+            if (i_Board.GameBoard[i_Move.XTo, i_Move.YTo].PiecePointer == null)
             {
                 if (i_Player.Side == ePlayerSide.Down)
                 {
@@ -242,7 +242,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                     {
                         if (IsInBorders(i_Board, i_Move.XTo + 2 * i_Direction, i_Move.YTo - 2 * i_Direction))
                         {
-                            if (i_Board.GameBoard[i_Move.XTo + 2 * i_Direction, i_Move.YTo - 2 * i_Direction] == null)
+                            if (i_Board.GameBoard[i_Move.XTo + 2 * i_Direction, i_Move.YTo - 2 * i_Direction].PiecePointer == null)
                             {
                                 doubleCaptureMove = true;
                             }
@@ -259,7 +259,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                     {
                         if (IsInBorders(i_Board, i_Move.XTo + 2 * i_Direction, i_Move.YTo + 2 * i_Direction))
                         {
-                            if (i_Board.GameBoard[i_Move.XTo + 2 * i_Direction, i_Move.YTo + 2 * i_Direction] == null)
+                            if (i_Board.GameBoard[i_Move.XTo + 2 * i_Direction, i_Move.YTo + 2 * i_Direction].PiecePointer == null)
                             {
                                 doubleCaptureMove = true;
                             }
