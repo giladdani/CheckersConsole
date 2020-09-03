@@ -14,7 +14,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             {
                 if (Math.Abs(i_Move.XTo - i_Move.XFrom) == 1)
                 {
-                    simpleMove = (isKingMoveDiagonalLine(i_Player, i_Move) || isSimpleMovePossible(i_Player, i_Board, i_Move));
+                    simpleMove = (IsKingMoveDiagonalLine(i_Player, i_Move) || IsSimpleMovePossible(i_Player, i_Board, i_Move));
                 }
             }
             return simpleMove;
@@ -27,7 +27,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             //check valid move for regular piece
             if (i_Board.GameBoard[i_Move.XFrom, i_Move.YFrom].PiecePointer.IsKing == false)
             {
-                if (isMoveDiagonalLine(i_Player, i_Move))
+                if (IsMoveDiagonalLine(i_Player, i_Move))
                 {
                     possible = true;
                 }
@@ -138,7 +138,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         {
             bool doubleCaptureMove = false;
 
-            doubleCaptureMove = (isDoubleCaptureSimpleMove(i_Player, i_Board, i_Move) || isKingDoubleCaptureSimpleMove(i_Player, i_Board, i_Move));
+            doubleCaptureMove = (IsDoubleCaptureSimpleMove(i_Player, i_Board, i_Move) || IsKingDoubleCaptureSimpleMove(i_Player, i_Board, i_Move));
                 
             
             return doubleCaptureMove;

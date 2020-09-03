@@ -33,14 +33,13 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                 m_CurrentGame.ExecuteMove(currentMove);
             }
             // TODO calculate score and sum it to total score
-            //printRoundScores();         // TODO
             if(playAgain())
             {
                 StartRound();
             }
             else
             {
-                //printFinalScores();     // TODO
+                printFinalScores();
             }
         }
 
@@ -48,20 +47,33 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         // Gets a move from the user
         private Move getMove()
         {
-            StringBuilder turnMessage = new StringBuilder();
-            turnMessage.Append(m_CurrentGame.CurrentPlayer.Name);
-            turnMessage.Append("'s Turn ");
-            turnMessage.Append(m_CurrentGame.CurrentPlayer.Side == ePlayerSide.Down ? "(X): " : "(O): ");
-            Console.Write(turnMessage);
-            string moveString = Console.ReadLine();
-            while(!InputValidator.IsMoveSyntaxValid(moveString, m_CurrentGame.Board.Size))
+            if(m_CurrentGame.CurrentPlayer.IsAi)
             {
-                Console.Write("Invalid move format, try again: ");
-                moveString = Console.ReadLine();
+                Move move = m_CurrentGame.GenerateRandomMove();
+            }
+            else
+            {
+                StringBuilder turnMessage = new StringBuilder();
+                turnMessage.Append(m_CurrentGame.CurrentPlayer.Name);
+                turnMessage.Append("'s Turn ");
+                turnMessage.Append(m_CurrentGame.CurrentPlayer.Side == ePlayerSide.Down ? "(X): " : "(O): ");
+                Console.Write(turnMessage);
+                string moveString = Console.ReadLine();
+                while (!InputValidator.IsMoveSyntaxValid(moveString, m_CurrentGame.Board.Size))
+                {
+                    Console.Write("Invalid move format, try again: ");
+                    moveString = Console.ReadLine();
+                }
             }
 
             Move move = new Move(moveString);
             return move;
+        }
+
+        // Print final players Scores
+        private void printFinalScores()
+        {
+            // TODO
         }
 
         // Returns true if the user input is another game

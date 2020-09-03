@@ -20,6 +20,19 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             r_Side = i_Side;
         }
 
+        // Public Methods
+        public Move GetPossibleMove(Board i_CurrentBoard)
+        {
+            if(r_Side == ePlayerSide.Up)
+            {
+                
+            }
+            else
+            {
+
+            }
+        }
+
         // Properties
         public ePlayerSide Side
         {

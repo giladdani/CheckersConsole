@@ -61,7 +61,22 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         public bool IsOver()
         {
             bool isOver = false;
-            if (m_TurnCount > 1 && (m_PlayerOne.PiecesLeft == 0 || m_PlayerTwo.PiecesLeft == 0 || m_LastPlayer.LastTurn == "Q"))
+
+            // If Last player quit
+            if (m_LastPlayer.LastTurn == "Q")
+            {
+                m_LastPlayer.PiecesLeft = 0;
+                isOver = true;
+            }
+
+            // If a player has no pieces left
+            if ((m_PlayerOne.PiecesLeft == 0 || m_PlayerTwo.PiecesLeft == 0) && m_TurnCount > 1)
+            {
+                isOver = true;
+            }
+
+            // If current player has no moves to play
+            if(!CurrentPlayer.HasPossibleMoves(m_Board))
             {
                 isOver = true;
             }
