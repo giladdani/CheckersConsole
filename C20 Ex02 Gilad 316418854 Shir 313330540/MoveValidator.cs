@@ -77,7 +77,6 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                 kingCapturePossible = IsCaptureMovePossiblePerSide(ePlayerSide.Up, i_Board, (int)ePlayerMoves.MoveUp, i_Piece);
             }
 
-
             return kingCapturePossible;
         }
 
@@ -86,8 +85,10 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         {
             bool simpleMove = false;
 
-            if(i_Board.GameBoard[i_Move.XTo, i_Move.YTo] ==null)
+            // if destination is empty
+            if(i_Board.GameBoard[i_Move.XTo, i_Move.YTo].PiecePointer == null)
             {
+                // if row diff is 1
                 if (Math.Abs(i_Move.XTo - i_Move.XFrom) == 1)
                 {
                     simpleMove = (IsKingMoveDiagonalLine(i_Player, i_Move) || IsSimpleMovePossible(i_Player, i_Board, i_Move));
@@ -108,6 +109,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                 {
                     possible = IsMoveDiagonalLine(ePlayerSide.Down, i_Move, (int)ePlayerMoves.MoveUp);
                 }
+
                 if (i_Player.Side == ePlayerSide.Up)
                 {
                     possible = IsMoveDiagonalLine(ePlayerSide.Up, i_Move, (int)ePlayerMoves.MoveDown);
