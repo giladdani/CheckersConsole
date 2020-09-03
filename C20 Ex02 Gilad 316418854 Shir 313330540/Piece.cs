@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Drawing;
+using System.Windows;
+using System.Drawing;
 
 namespace C20_Ex02_Gilad_316418854_Shir_313330540
 {
@@ -38,12 +40,15 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         }
         public bool IsKing
         {
-            get => m_IsKing;
+            get
+            {
+                return m_IsKing;
+            }
             set
             {
-                if (value == true)
+                if (value == true)          // todo why this check? if we start a new round we want to reset it
                 {
-                    m_IsKing=true;
+                    m_IsKing = true;
                 }
             }
         }
@@ -55,13 +60,15 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             }
             set
             {
-                if (value == true)
+                if (value == true)          // todo same question as IsKing
                 {
                     m_IsCaptured = true;
                 }
             }
         }
     }
+
+
 }
 
 
