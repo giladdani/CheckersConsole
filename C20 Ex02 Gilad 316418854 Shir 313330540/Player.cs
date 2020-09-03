@@ -71,21 +71,21 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
 
         // Public Methods
         // Returns true if the player has any possible move to play
-        //public bool HasPossibleMoves(Board i_CurrentBoard)        TODO
-        //{
-        //    bool hasMove = false;
+        public bool HasPossibleMoves(Board i_CurrentBoard)
+        {
+            bool hasMove = false;
 
-        //    foreach(Piece piece in m_Pieces)
-        //    {
-        //        // if piece can move/capture
-        //        if(piece.HasPossibleMoves(i_CurrentBoard));
-        //        {
-        //            hasMove = true;
-        //        }
-        //    }
+            foreach(Piece piece in m_Pieces)
+            {
+                // if piece can move/capture
+                if(piece.HasPossibleMoves(i_CurrentBoard));
+                {
+                    hasMove = true;
+                }
+}
 
-        //    return hasMove;
-        //}
+            return hasMove;
+        }
 
         // Returns a random generated move for the player
         //public Move GenerateRandomMove(Board i_CurrentBoard)       TODO

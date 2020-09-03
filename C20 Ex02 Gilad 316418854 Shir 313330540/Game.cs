@@ -42,7 +42,6 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                 {
                     if (MoveValidator.IsPlayerHasCapture(CurrentPlayer, m_Board))
                     {
-
                         moveFeedback = eMoveFeedback.FailedCouldCapture;
                     }
                     else //Execute
@@ -56,12 +55,10 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                 // capture move
                 else if (MoveValidator.IsCaptureMovePossible(CurrentPlayer, m_Board, i_Move))
                 {
-                    m_Board.makeMove(CurrentPlayer, m_Board.GameBoard[i_Move.XFrom, i_Move.YFrom].PiecePointer, new Point(i_Move.XTo, i_Move.YTo));
+                    m_Board.makeCaptureMove(CurrentPlayer, m_Board.GameBoard[i_Move.XFrom, i_Move.YFrom].PiecePointer, new Point(i_Move.XTo, i_Move.YTo));
                     moveFeedback = eMoveFeedback.Success;
                     m_LastPlayer = CurrentPlayer;
                     m_TurnCount++;
-                    //TODO: 1. update other player pieces list
-                    //      2. delete from board
                     if (MoveValidator.IsDoubleCaptureMove(CurrentPlayer, m_Board, i_Move))
                     {
                         TurnCount--;
@@ -73,22 +70,8 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             {
                 moveFeedback = eMoveFeedback.Quit;
             }
-
-            return moveFeedback;
-                    m_Board.makeCaptureMove(CurrentPlayer, m_Board.GameBoard[i_Move.XFrom, i_Move.YFrom].PiecePointer, new Point(i_Move.XTo, i_Move.YTo));
-                  
-                    if (MoveValidator.IsDoubleCaptureMove(CurrentPlayer, m_Board, i_Move))
-                    {
-                        TurnCount--;
-                        // ask for another turn
-                    }
-                        
-                }
-
                 
-            }
-            TurnCount++;
-            m_LastPlayer = CurrentPlayer;
+            return moveFeedback;
         }
 
         // Returns true if the game is over
@@ -103,10 +86,10 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             }
 
             // If current player has no moves to play
-            //if(!CurrentPlayer.HasPossibleMoves(m_Board))   TODO
-            //{
-            //    isOver = true;
-            //}
+            if(!CurrentPlayer.HasPossibleMoves(m_Board))
+            {
+                isOver = true;
+            }
 
             return isOver;
         }

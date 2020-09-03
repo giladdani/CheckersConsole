@@ -21,6 +21,11 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             return captureMovePossible;
         }
 
+        public static bool IsPieceHavePossibleMove(Board i_CurrentBoard)
+        {
+            // TODO
+        }
+
         // Public Methods
         public static bool IsPlayerHasCapture(Player i_Player, Board i_Board)
         {

@@ -22,10 +22,10 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         }
 
         // Public Methods
-        //public bool HasPossibleMoves(Board i_CurrentBoard)
-        //{
-        //    return (MoveValidator.IsPieceHavePossibleMove(i_CurrentBoard));     // TODO
-        //}
+        public bool HasPossibleMoves(Board i_CurrentBoard)
+        {
+            return (MoveValidator.IsPieceHavePossibleMove(i_CurrentBoard));
+        }
 
         // Properties
         public ePlayerSide Side
@@ -54,10 +54,9 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             }
             set
             {
-                if (value == true)          // todo why this check? if we start a new round we want to reset it
-                {
-                    m_IsKing = true;
-                }
+                
+                m_IsKing = true;
+                
             }
         }
         public bool IsCaptured
@@ -68,10 +67,8 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             }
             set
             {
-                if (value == true)          // todo same question as IsKing
-                {
-                    m_IsCaptured = true;
-                }
+                m_IsCaptured = true;
+                
             }
         }
     }
