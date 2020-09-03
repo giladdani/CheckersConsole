@@ -8,23 +8,33 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         private static bool isCapturePossiblePerPiece(Player i_Player, Board i_Board, Piece i_Piece)
         {
             bool captureMovePossible = false;
-
-            if (i_Player.Side == ePlayerSide.Down)
+            if(i_Piece.IsKing==false)
             {
-                captureMovePossible = IsCaptureMovePossiblePerSide(ePlayerSide.Down, i_Board, (int)ePlayerMoves.MoveUp, i_Piece);
+                if (i_Player.Side == ePlayerSide.Down)
+                {
+                    captureMovePossible = IsCaptureMovePossiblePerSide(ePlayerSide.Down, i_Board, (int)ePlayerMoves.MoveUp, i_Piece);
+                }
+                else
+                {
+                    captureMovePossible = IsCaptureMovePossiblePerSide(ePlayerSide.Up, i_Board, (int)ePlayerMoves.MoveDown, i_Piece);
+                }
             }
             else
             {
-                captureMovePossible = IsCaptureMovePossiblePerSide(ePlayerSide.Up, i_Board, (int)ePlayerMoves.MoveDown, i_Piece);
+                if (i_Player.Side == ePlayerSide.Down)
+                {
+                    captureMovePossible = IsCaptureMovePossiblePerSide(ePlayerSide.Down, i_Board, (int)ePlayerMoves.MoveDown, i_Piece);
+                }
+                else
+                {
+                    captureMovePossible = IsCaptureMovePossiblePerSide(ePlayerSide.Up, i_Board, (int)ePlayerMoves.MoveUp, i_Piece);
+                }
+
             }
 
             return captureMovePossible;
         }
 
-        public static bool IsPieceHavePossibleMove(Board i_CurrentBoard)
-        {
-            // TODO
-        }
 
         // Public Methods
         public static bool IsPlayerHasCapture(Player i_Player, Board i_Board)
@@ -285,7 +295,69 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
 
             return doubleCaptureMove;
         }
- 
+
+
+        public static bool IsPieceHavePossibleMove(Player i_Player, Board i_Board, Piece i_Piece)
+        {
+            bool pieceHavePossibleMove = false;
+
+            pieceHavePossibleMove = isSimpleMovePossiblePerPiece(i_Player, i_Board, i_Piece);
+            pieceHavePossibleMove = isCapturePossiblePerPiece(i_Player, i_Board, i_Piece);
+            return pieceHavePossibleMove;
+        }
+
+        private static bool isSimpleMovePossiblePerPiece(Player i_Player, Board i_Board, Piece i_Piece)
+        {
+            bool pieceHavePossibleMove = false;
+
+            if (i_Piece.IsKing == false)
+            {
+                if(i_Player.Side==ePlayerSide.Down)
+                {
+                    pieceHavePossibleMove = isSimpleMovePossiblePerPieceBySide(i_Board, i_Piece, (int)ePlayerMoves.MoveUp);
+                }
+                else
+                {
+                    pieceHavePossibleMove = isSimpleMovePossiblePerPieceBySide(i_Board, i_Piece, (int)ePlayerMoves.MoveDown);
+
+                }
+            }
+            else
+            {
+                if (i_Player.Side == ePlayerSide.Down)
+                {
+                    pieceHavePossibleMove = isSimpleMovePossiblePerPieceBySide(i_Board, i_Piece, (int)ePlayerMoves.MoveDown);
+                }
+                else
+                {
+                    pieceHavePossibleMove = isSimpleMovePossiblePerPieceBySide(i_Board, i_Piece, (int)ePlayerMoves.MoveUp);
+                }
+
+            }
+            return pieceHavePossibleMove;
+
+        }
+
+        private static bool isSimpleMovePossiblePerPieceBySide( Board i_Board, Piece i_Piece, int i_Direction)
+        {
+            bool pieceHavePossibleMove = false;
+            if (IsInBorders(i_Board, i_Piece.Location.X + i_Direction, i_Piece.Location.Y + i_Direction))
+            {
+                if (i_Board.GameBoard[i_Piece.Location.X + i_Direction, i_Piece.Location.Y + i_Direction].PiecePointer == null)
+                {
+                    pieceHavePossibleMove = true;
+                }
+            }
+            if (IsInBorders(i_Board, i_Piece.Location.X + i_Direction, i_Piece.Location.Y - i_Direction))
+            {
+                if (i_Board.GameBoard[i_Piece.Location.X + i_Direction, i_Piece.Location.Y - i_Direction].PiecePointer == null)
+                {
+                    pieceHavePossibleMove = true;
+                }
+            }
+            return pieceHavePossibleMove;
+        }
+
         public static ePlayerSide GetOtherSide(ePlayerSide i_Side)
         {
             ePlayerSide side = (i_Side==ePlayerSide.Down) ? ePlayerSide.Up : ePlayerSide.Down;
