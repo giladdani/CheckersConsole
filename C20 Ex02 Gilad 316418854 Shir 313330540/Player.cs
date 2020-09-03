@@ -78,42 +78,41 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             foreach(Piece piece in m_Pieces)
             {
                 // if piece can move/capture
-                if(piece.HasPossibleMoves(i_CurrentBoard));
+                if(piece.HasPossibleMoves(i_CurrentBoard, this))
                 {
                     hasMove = true;
                 }
 }
-
             return hasMove;
         }
 
         // Returns a random generated move for the player
-        //public Move GenerateRandomMove(Board i_CurrentBoard)       TODO
-        //{
-        //    foreach(Piece piece in m_Pieces)
-        //    {
-        //        if(piece.IsKing)
-        //        {
-        //            if(MoveValidator.IsKingCapturePossible(this, i_CurrentBoard, piece))
-        //            {
-        //                move = piece.GetPossibleMove();
-        //            }
-                    
-        //        }
-        //        else
-        //        {
-        //            if(MoveValidator.IsCapturePossible(this, i_CurrentBoard, piece))
-        //            {
+        public Move GenerateRandomMove(Board i_CurrentBoard)
+        {
+            foreach(Piece piece in m_Pieces)
+            {
+                if(piece.IsKing)
+                {
+                    if(MoveValidator.IsKingCapturePossible(this, i_CurrentBoard, piece))
+                    {
+                        move = piece.GetPossibleMove();
+                    }
+                  
+                }
+                else
+                {
+                    if(MoveValidator.IsCapturePossible(this, i_CurrentBoard, piece))
+                    {
 
-        //            }
-        //            //else if( piece can do simple move)
-        //        }
+                    }
+                    //else if( piece can do simple move)
+                }
 
-        //        Move move = piece.GetPossibleMove(i_CurrentBoard);
-        //    }
-            
-        //    return move;
-        //}
+                Move move = piece.GetPossibleMove(i_CurrentBoard);
+            }
+          
+            return move;
+        }
 
         // Properties
         public string Name

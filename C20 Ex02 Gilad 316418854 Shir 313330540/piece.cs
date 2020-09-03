@@ -22,9 +22,9 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         }
 
         // Public Methods
-        public bool HasPossibleMoves(Board i_CurrentBoard)
+        public bool HasPossibleMoves(Board i_CurrentBoard, Player i_Player)
         {
-            return (MoveValidator.IsPieceHavePossibleMove(i_CurrentBoard));
+            return (MoveValidator.IsPieceHavePossibleMove(i_CurrentBoard, this, i_Player));
         }
 
         // Properties

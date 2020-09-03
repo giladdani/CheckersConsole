@@ -1,10 +1,24 @@
 ﻿using System;
 using System.Globalization;
+using System.Text;
 
 namespace C20_Ex02_Gilad_316418854_Shir_313330540
 {
     public class MoveValidator
     {
+        public static string ConvertMoveToString(Move i_Move)
+        {
+            StringBuilder moveString = new StringBuilder();
+            // Bf>Gd
+            moveString.Append(i_Move.YFrom + 'A');
+            moveString.Append(i_Move.XFrom + 'a');
+            moveString.Append('>');
+            moveString.Append(i_Move.YTo + 'A');
+            moveString.Append(i_Move.YTo + 'a');
+
+            return moveString.ToString();
+        }
+
         private static bool isCapturePossiblePerPiece(Player i_Player, Board i_Board, Piece i_Piece)
         {
             bool captureMovePossible = false;

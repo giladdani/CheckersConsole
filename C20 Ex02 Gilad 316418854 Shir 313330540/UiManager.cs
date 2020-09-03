@@ -44,24 +44,24 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                 }
             }
 
-            m_CurrentGame.CalculateScores();        // TODO
+            printTotalScores();
             if(playAgain())
             {
                 StartRound();
             }
-            else
-            {
-                printFinalScores();
-            }
         }
 
         // Private Methods
-        // Gets a move from the user    TODO
-        private Move getMove(out string o_moveString)
+        // Gets a move from the user
+        private Move getMove(out string io_MoveString)
         {
+            Move move;
+            string moveString;
+
             if (m_CurrentGame.CurrentPlayer.IsAi)
             {
-                Move move = m_CurrentGame.CurrentPlayer.GenerateRandomMove(m_CurrentGame.Board);
+                move = m_CurrentGame.CurrentPlayer.GenerateRandomMove(m_CurrentGame.Board);
+                moveString = MoveValidator.ConvertMoveToString(move);
             }
             else
             {
@@ -70,19 +70,27 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                 turnMessage.Append("'s Turn ");
                 turnMessage.Append(m_CurrentGame.CurrentPlayer.Side == ePlayerSide.Down ? "(X): " : "(O): ");
                 Console.Write(turnMessage);
-                string moveString = Console.ReadLine();
+                moveString = Console.ReadLine();
                 while (!InputValidator.IsMoveSyntaxValid(moveString, m_CurrentGame.Board.Size))
                 {
                     Console.Write("Invalid move format, try again: ");
                     moveString = Console.ReadLine();
                 }
-                Move move = new Move(moveString);
+
+                move = new Move(moveString);
             }
 
-            o_moveString = moveString;
+            io_MoveString = moveString;
             return move;
         }
 
+        // Prints current player scores
+        private void printTotalScores()
+        {
+
+        }
+
+        // Prints the feedback from the last move
         private void printFeedback(eMoveFeedback i_MoveFeedback)
         {
             switch (i_MoveFeedback)

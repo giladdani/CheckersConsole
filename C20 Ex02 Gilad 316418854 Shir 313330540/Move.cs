@@ -12,6 +12,11 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         private bool m_IsQuit;
 
         // Constructors
+        public Move()
+        {
+
+        }
+
         public Move(string i_Move)
         {
             if(i_Move[0] == 'Q')
