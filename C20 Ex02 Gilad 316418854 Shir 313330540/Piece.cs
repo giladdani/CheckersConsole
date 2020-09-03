@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows;
-using System.Drawing;
 
 namespace C20_Ex02_Gilad_316418854_Shir_313330540
 {
     public class Piece
     {
         private readonly ePlayerSide r_Side;
-        private Point m_Location;
         private bool m_IsKing;
         private bool m_IsCaptured;
         private Point m_Location;
-        private readonly ePlayerSide r_Type;
 
         // Constructors
         public Piece(Point i_Location, ePlayerSide i_Side)

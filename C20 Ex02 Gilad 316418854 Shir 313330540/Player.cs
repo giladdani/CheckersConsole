@@ -12,6 +12,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         private int m_TotalScore;
         private bool m_IsAi;
         private string m_LastTurn;
+        private int m_PiecesLeft;
         
         // Constructors
         public Player(string i_Name, ePlayerSide i_Side, int i_BoardSize, bool i_IsAi)
@@ -20,6 +21,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             m_Side = i_Side;
             m_IsAi = i_IsAi;
             m_TotalScore = 0;
+            m_LastTurn = "Empty";       // TODO find a better solution for this
             initPieceArr(i_Side, i_BoardSize);
         }
 
@@ -27,8 +29,9 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         // Initialize array of pieces
         private void initPieceArr(ePlayerSide i_Side, int i_BoardSize)
         {
-            int numOfPieces = (i_BoardSize / 2) * (i_BoardSize - 1);
+            int numOfPieces = (i_BoardSize / 2) * ((i_BoardSize / 2) - 1);
             m_Pieces = new Piece[numOfPieces];
+            m_PiecesLeft = numOfPieces;
             int endRow, startRow, piecesIndex = 0;
             if(i_Side == ePlayerSide.Up)
             {
@@ -37,15 +40,15 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             }
             else //i_Side=Down
             {
-                startRow = (i_BoardSize / 2) - 1;
+                startRow = (i_BoardSize / 2) + 1;
                 endRow = i_BoardSize;
             }
 
-            while(piecesIndex < numOfPieces)
+            for(int i = startRow; i < endRow; i++)
             {
-                for(int i = startRow; i < endRow; i++)
+                for(int j = 0; j < i_BoardSize; j++)
                 {
-                    for(int j = 0; j < i_BoardSize; j++)
+                    if(piecesIndex < numOfPieces)
                     {
                         if((j % 2 == 1) && (i % 2 == 0))
                         {
@@ -123,6 +126,17 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             set
             {
                 m_LastTurn = value;
+            }
+        }
+        public int PiecesLeft
+        {
+            get
+            {
+                return m_PiecesLeft;
+            }
+            set
+            {
+                m_PiecesLeft = value;
             }
         }
     }

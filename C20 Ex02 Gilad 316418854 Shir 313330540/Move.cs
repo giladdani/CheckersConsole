@@ -1,23 +1,28 @@
 ﻿using System;
 
-
 namespace C20_Ex02_Gilad_316418854_Shir_313330540
 {
-    class Move
+    public class Move
     {
         private int m_XFrom;
         private int m_YFrom;
         private int m_XTo;
         private int m_YTo;
-        private int m_XToDoubleCapture;
-        private int m_YToDoubleCapture;
+        private bool m_IsQuit;
 
         public Move(string i_Move)
         {
-            m_XFrom = i_Move[1] - 97;
-            m_YFrom = i_Move[0] - 65;
-            m_XTo = i_Move[3] - 97;
-            m_YTo = i_Move[2] - 65;
+            if(i_Move[0] == 'Q')
+            {
+                m_IsQuit = true;
+            }
+            else
+            {
+                m_XFrom = i_Move[1] - 'a';
+                m_YFrom = i_Move[0] - 'A';
+                m_XTo = i_Move[3] - 'a';
+                m_YTo = i_Move[2] - 'A';
+            }
         }
 
         public int XFrom
@@ -49,28 +54,15 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             }
         }
 
-
-       
-        public int XToDoubleCapture
+        public bool IsQuit
         {
             get
             {
-                return m_XToDoubleCapture;
+                return m_IsQuit;
             }
             set
             {
-                m_XToDoubleCapture = value;
-            }
-        }
-        public int YToDoubleCapture
-        {
-            get
-            {
-                return m_YToDoubleCapture;
-            }
-            set
-            {
-                m_YToDoubleCapture = value;
+                m_IsQuit = value;
             }
         }
 

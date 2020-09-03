@@ -3,7 +3,7 @@ using System.Globalization;
 
 namespace C20_Ex02_Gilad_316418854_Shir_313330540
 {
-    class MoveValidator
+    public class MoveValidator
     {
        
         //Returns true if the the move without capture is possible

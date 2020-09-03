@@ -24,18 +24,18 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             {
                 for (int j = 0; j < m_Size; j++)
                 {
-                    m_GameBoard[i, j].PiecePointer = null;
+                    m_GameBoard[i, j] = new Square();
                 }
             }
         }
 
         public void SetPiecesPosition(Player i_Player)
         {
-            for (int i = 0; i < (m_Size / 2) * (m_Size - 1); i++)
+            for (int i = 0; i < (m_Size / 2) * (m_Size / 2 - 1); i++)
             {
-                x = i_Player.Pieces[i].Location.X;
-                y = i_Player.Pieces[i].Location.Y;
-                m_GameBoard[x,y].PiecePointer = i_Player.Pieces[i];
+                int x = i_Player.Pieces[i].Location.X;
+                int y = i_Player.Pieces[i].Location.Y;
+                m_GameBoard[x, y].PiecePointer = i_Player.Pieces[i];
             }
         }
        
@@ -57,14 +57,8 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             m_GameBoard[i_To.X, i_To.Y].PiecePointer = i_Player.Pieces[i_PieceIndex];
             //update the piece pointer in the new piece it have
         }
+
         // Properties
-        public Square[,] Squares
-        {
-            get
-            {
-                return m_Board;
-            }
-        }
         public int Size
         {
             get
