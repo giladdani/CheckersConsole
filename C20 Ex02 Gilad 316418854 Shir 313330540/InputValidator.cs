@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Drawing;
+
 
 namespace C20_Ex02_Gilad_316418854_Shir_313330540
 {
@@ -40,13 +42,12 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
 
             return (isQuitMove || (isLengthValid && isSeparatorValid && isLettersValid));
         }
-
         // Returns true if the letters of the move are in the right format
         private static bool isMoveLettersValid(string i_Move, int i_BoardSize)
         {
             bool[] isLetterValid = { true, true, true, true };
 
-            if(i_BoardSize == 6)
+            if (i_BoardSize == 6)
             {
                 isLetterValid[0] = i_Move[0] >= 'A' && i_Move[0] <= 'F';
                 isLetterValid[1] = i_Move[1] >= 'a' && i_Move[1] <= 'f';
@@ -54,7 +55,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                 isLetterValid[3] = i_Move[4] >= 'a' && i_Move[4] <= 'f';
             }
 
-            if(i_BoardSize == 8)
+            if (i_BoardSize == 8)
             {
                 isLetterValid[0] = i_Move[0] >= 'A' && i_Move[0] <= 'H';
                 isLetterValid[1] = i_Move[1] >= 'a' && i_Move[1] <= 'h';
@@ -62,7 +63,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                 isLetterValid[3] = i_Move[4] >= 'a' && i_Move[4] <= 'h';
             }
 
-            if(i_BoardSize == 10)
+            if (i_BoardSize == 10)
             {
                 isLetterValid[0] = i_Move[0] >= 'A' && i_Move[0] <= 'J';
                 isLetterValid[1] = i_Move[1] >= 'a' && i_Move[1] <= 'j';
@@ -72,5 +73,6 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
 
             return (isLetterValid[0] && isLetterValid[1] && isLetterValid[2] && isLetterValid[3]);
         }
+
     }
 }

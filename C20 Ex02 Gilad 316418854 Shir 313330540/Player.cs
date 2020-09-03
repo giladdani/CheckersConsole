@@ -86,7 +86,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         {
             get
             {
-                return PiecesArr;
+                return m_Pieces;
             }
         }
         public int TotalScore

@@ -1,28 +1,32 @@
 ﻿using System;
 using System.Drawing;
+using System.Windows;
+using System.Drawing;
 
 namespace C20_Ex02_Gilad_316418854_Shir_313330540
 {
     public class Piece
     {
+        private readonly ePlayerSide r_Side;
+        private Point m_Location;
         private bool m_IsKing;
         private bool m_IsCaptured;
-        private Point m_Location;
-        private readonly ePlayerSide r_Type;
 
-        public Piece(Point i_Location, ePlayerSide i_Type)
+        // Constructors
+        public Piece(Point i_Location, ePlayerSide i_Side)
         {
             m_IsKing = false;
             m_IsCaptured = false;
             m_Location = i_Location;
-            r_Type = i_Type;
+            r_Side = i_Side;
         }
 
-        public ePlayerSide Type
+        // Properties
+        public ePlayerSide Side
         {
             get
             {
-                return m_Type;
+                return r_Side;
             }
         }
         public Point Location
@@ -38,12 +42,15 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         }
         public bool IsKing
         {
-            get => m_IsKing;
+            get
+            {
+                return m_IsKing;
+            }
             set
             {
-                if (value == true)
+                if (value == true)          // todo why this check? if we start a new round we want to reset it
                 {
-                    m_IsKing=true;
+                    m_IsKing = true;
                 }
             }
         }
@@ -55,13 +62,15 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             }
             set
             {
-                if (value == true)
+                if (value == true)          // todo same question as IsKing
                 {
                     m_IsCaptured = true;
                 }
             }
         }
     }
+
+
 }
 
 
