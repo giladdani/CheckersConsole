@@ -31,12 +31,14 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
 
         public void SetPiecesPosition(Player i_Player)
         {
-            for (int i = 0; i < (m_Size / 2) * (m_Size / 2 - 1); i++)
+            for (int i = 0; i < i_Player.Pieces.Count; i++)
             {
                 int x = i_Player.Pieces[i].Location.X;
                 int y = i_Player.Pieces[i].Location.Y;
                 m_GameBoard[x, y].PiecePointer = i_Player.Pieces[i];
             }
+            
+
         }
        
         //public void makeMove(Piece i_Piece, Point i_To)
@@ -56,6 +58,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             i_Player.Pieces[i_PieceIndex].Location = i_To;// update piece location
             m_GameBoard[i_To.X, i_To.Y].PiecePointer = i_Player.Pieces[i_PieceIndex];
             //update the piece pointer in the new piece it have
+
         }
 
         // Properties

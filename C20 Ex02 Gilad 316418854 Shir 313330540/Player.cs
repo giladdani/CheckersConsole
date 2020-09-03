@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Drawing;
+using System.Collections.Generic;
+
 
 namespace C20_Ex02_Gilad_316418854_Shir_313330540
 {
@@ -8,7 +10,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         // Private Members
         private string m_Name;
         private ePlayerSide m_Side;
-        private Piece[] m_Pieces;
+        private List<Piece> m_Pieces;
         private int m_TotalScore;
         private bool m_IsAi;
         private string m_LastTurn;
@@ -30,7 +32,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         private void initPieceArr(ePlayerSide i_Side, int i_BoardSize)
         {
             int numOfPieces = (i_BoardSize / 2) * ((i_BoardSize / 2) - 1);
-            m_Pieces = new Piece[numOfPieces];
+            m_Pieces = new List<Piece>();
             m_PiecesLeft = numOfPieces;
             int endRow, startRow, piecesIndex = 0;
             if(i_Side == ePlayerSide.Up)
@@ -54,16 +56,14 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                         {
                             Point locationPoint = new Point(i, j);
                             Piece boardPiece = new Piece(locationPoint, i_Side);
-                            m_Pieces[piecesIndex] = boardPiece;
-                            piecesIndex++;
+                            m_Pieces.Add(boardPiece);
                         }
 
                         if((j % 2 == 0) && (i % 2 == 1))
                         {
                             Point locationPoint = new Point(i, j);
                             Piece boardPiece = new Piece(locationPoint, i_Side);
-                            m_Pieces[piecesIndex] = boardPiece;
-                            piecesIndex++;
+                            m_Pieces.Add(boardPiece);
                         }
                     }
                 }
@@ -85,7 +85,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                 return m_Side;
             }
         }
-        public Piece[] Pieces
+        public List<Piece> Pieces
         {
             get
             {

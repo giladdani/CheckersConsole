@@ -33,28 +33,51 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         // Execute the given move
         public void ExecuteMove(Move i_Move)
         {
-            if(!i_Move.IsQuit)
+            TurnCount++;
+            m_LastPlayer = CurrentPlayer;
+            if (!i_Move.IsQuit)
             {
-                bool captureMove = MoveValidator.IsCaptureMove(CurrentPlayer, m_Board, i_Move);
-                Point moveToPoint = new Point((i_Move.XTo - 'a'), i_Move.YTo - 'A');
-                int numOfPiecesCurrPlayer = CurrentPlayer.Pieces.Length;
-                int index = 0;
-                // find the piece in the location from the receiving move
-                TurnCount++;
-                m_LastPlayer = CurrentPlayer;
-                while (numOfPiecesCurrPlayer != 0)
+                if (MoveValidator.IsSimpleMove(CurrentPlayer, m_Board, i_Move))
                 {
-                    if (CurrentPlayer.Pieces[index].Location.X == i_Move.XFrom && CurrentPlayer.Pieces[index].Location.Y == i_Move.YFrom)
+                    if (MoveValidator.IsPlayerHasCapture(CurrentPlayer, m_Board))
                     {
-                        CurrentPlayer.Pieces[index].Location = moveToPoint;
-                        m_Board.makeMove(CurrentPlayer, index, moveToPoint);
-                        return;
+
+                        //user choose simple move, but he can choose Capture, ask for new move.
+                    }
+                    else //Execute simple move
+                    {
+                        for (int i = 0; i < CurrentPlayer.Pieces.Count; i++)
+                        {
+                            if (CurrentPlayer.Pieces[i].Location.X == i_Move.XFrom && CurrentPlayer.Pieces[i].Location.Y == i_Move.YFrom)
+                            {
+                                m_Board.makeMove(CurrentPlayer, i, new Point(i_Move.XTo, i_Move.YTo));
+                            }
+                        }
+                    }
+                }
+                // capture move
+                else if (MoveValidator.IsCaptureMovePossible(CurrentPlayer, m_Board, i_Move))
+                {
+                    for (int i = 0; i < CurrentPlayer.Pieces.Count; i++)
+                    {
+                        if (CurrentPlayer.Pieces[i].Location.X == i_Move.XFrom && CurrentPlayer.Pieces[i].Location.Y == i_Move.YFrom)
+                        {
+                            m_Board.makeMove(CurrentPlayer, i, new Point(i_Move.XTo, i_Move.YTo));
+                            //TODO: 1. update other player pieces list, 
+                            //      2. delete from board
+                            if (MoveValidator.IsDoubleCaptureMove(CurrentPlayer, m_Board, i_Move))
+                            {
+                                TurnCount--;
+                                // ask for another turn
+
+                            }
+                        }
                     }
 
-                    index++;
-                    numOfPiecesCurrPlayer--;
                 }
+
             }
+            
         }
 
         // Returns true if the game is over
