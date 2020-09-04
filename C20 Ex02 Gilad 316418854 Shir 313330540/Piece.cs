@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Runtime.InteropServices;
@@ -24,11 +25,12 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         }
 
         // Public Methods
-        // Returns true if the piece has any possible moves
-        public bool HasPossibleMoves(Board i_CurrentBoard, Player i_Player)
+        public bool HasPossibleMoves(Player i_Player, Board i_CurrentBoard)
         {
             return (MoveValidator.IsPieceHavePossibleMove(i_Player, i_CurrentBoard, this));
+
         }
+
 
         // Returns a list of the piece's possible moves
         public List<Move> GetAvailableMovesList(Player i_Player, Board i_Board)
@@ -36,29 +38,93 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             List<Move> movesList = new List<Move>();
             if (MoveValidator.IsPieceHavePossibleMove(i_Player, i_Board, this))
             {
-                //if(this.IsKing)
-                //{
-                //    addSimpleMovesUpside(movesList, i_Board);
-                //    addCaptureMovesUpside(movesList, i_Board);
-                //    addSimpleMovesDownside(movesList, i_Board);
-                //    addCaptureMovesDownside(movesList, i_Board);
-                //}
-                //if(this.r_Side == ePlayerSide.Up)
-                //{
-                    
-                //}
-                //else
-                //{
-                    
-                //}
-                //if (this.IsKing)
-                //{
-                //    // check and add possible back moves
-                //}
+
+                if (!this.IsKing)
+                {
+                    addNotKingsMoveToList(i_Player, i_Board, movesList);
+                }
+                else
+                {
+                    addNotKingsMoveToList(i_Player, i_Board, movesList);
+                }
             }
 
             return movesList;
         }
+
+        private void addNotKingsMoveToList(Player i_Player, Board i_Board, List<Move> i_MovesList)
+        {
+            if (MoveValidator.IsSimpleMove(i_Player, i_Board, new Move(this.Location.Y, this.Location.X, this.Location.Y + 1, this.Location.X - 1)))
+            {
+                i_MovesList.Add(new Move(this.Location.Y, this.Location.X, this.Location.Y + 1, this.Location.X - 1));
+            }
+            if (MoveValidator.IsSimpleMove(i_Player, i_Board, new Move(this.Location.Y, this.Location.X, this.Location.Y - 1, this.Location.X - 1)))
+            {
+                i_MovesList.Add(new Move(this.Location.Y, this.Location.X, this.Location.Y - 1, this.Location.X - 1));
+            }
+            if (checkCapture(i_Board, -1, new Move(this.Location.Y, this.Location.X, this.Location.Y - 2, this.Location.X - 2)))
+            {
+                i_MovesList.Add(new Move(this.Location.Y, this.Location.X, this.Location.Y - 2, this.Location.X - 2));
+            }
+
+            if (checkCapture(i_Board, 1, new Move(this.Location.Y, this.Location.X, this.Location.Y + 2, this.Location.X - 2)))
+            {
+                i_MovesList.Add(new Move(this.Location.Y, this.Location.X, this.Location.Y + 2, this.Location.X - 2));
+            }
+        }
+        private void addKingsMoveToList(Player i_Player, Board i_Board, List<Move> i_MovesList)
+        {
+            if (MoveValidator.IsSimpleMove(i_Player, i_Board, new Move(this.Location.Y, this.Location.X, this.Location.Y + 1, this.Location.X + 1)))
+            {
+                i_MovesList.Add(new Move(this.Location.Y, this.Location.X, this.Location.Y + 1, this.Location.X - 1));
+            }
+            if (MoveValidator.IsSimpleMove(i_Player, i_Board, new Move(this.Location.Y, this.Location.X, this.Location.Y - 1, this.Location.X + 1)))
+            {
+                i_MovesList.Add(new Move(this.Location.Y, this.Location.X, this.Location.Y - 1, this.Location.X - 1));
+            }
+            if (checkKingCapture(i_Board, -1, new Move(this.Location.Y, this.Location.X, this.Location.Y - 2, this.Location.X + 2)))
+            {
+                i_MovesList.Add(new Move(this.Location.Y, this.Location.X, this.Location.Y - 2, this.Location.X - 2));
+            }
+
+            if (checkKingCapture(i_Board, 1, new Move(this.Location.Y, this.Location.X, this.Location.Y + 2, this.Location.X + 2)))
+            {
+                i_MovesList.Add(new Move(this.Location.Y, this.Location.X, this.Location.Y + 2, this.Location.X - 2));
+            }
+        }
+        private bool checkCapture(Board i_Board, int i_Direction, Move i_Move)
+        {
+            bool captureMove = false;
+            if (MoveValidator.IsInBorders(i_Board, i_Move.XTo, i_Move.YTo))
+            {
+                if (i_Board.GameBoard[i_Move.XTo, i_Move.YTo].PiecePointer == null)
+                {
+                    if (i_Board.GameBoard[i_Move.XFrom - 1, i_Move.YFrom + i_Direction].PiecePointer.Side == MoveValidator.GetOtherSide(this.Side))
+                    {
+                        captureMove = true;
+                    }
+
+                }
+            }
+            return captureMove;
+        }
+        private bool checkKingCapture(Board i_Board, int i_Direction, Move i_Move)
+        {
+            bool captureMove = false;
+            if (MoveValidator.IsInBorders(i_Board, i_Move.XTo, i_Move.YTo))
+            {
+                if (i_Board.GameBoard[i_Move.XTo, i_Move.YTo].PiecePointer == null)
+                {
+                    if (i_Board.GameBoard[i_Move.XFrom + 1, i_Move.YFrom + i_Direction].PiecePointer.Side == MoveValidator.GetOtherSide(this.Side))
+                    {
+                        captureMove = true;
+                    }
+
+                }
+            }
+            return captureMove;
+        }
+
 
         // Private Methods
         private void addSimpleMovesUpside(List<Move> i_MovesList, Board i_Board)
@@ -95,6 +161,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                     i_MovesList.Add(new Move(this.Location.Y, this.Location.X, this.Location.Y - 2, this.Location.X + 2));
                 }
             }
+
         }
 
         // Properties
@@ -124,9 +191,9 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             }
             set
             {
-                
+
                 m_IsKing = true;
-                
+
             }
         }
         public bool IsCaptured
@@ -138,7 +205,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             set
             {
                 m_IsCaptured = true;
-                
+
             }
         }
     }
@@ -148,5 +215,5 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
 
 
 
-    
+
 

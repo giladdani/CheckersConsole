@@ -9,7 +9,6 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         public static string ConvertMoveToString(Move i_Move)
         {
             StringBuilder moveString = new StringBuilder();
-            // Bf>Gd
             moveString.Append(i_Move.YFrom + 'A');
             moveString.Append(i_Move.XFrom + 'a');
             moveString.Append('>');
@@ -227,102 +226,102 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             return captureMove;
         }
        
-        public static bool IsDoubleCaptureMove(Player i_Player, Board i_Board, Move i_Move)
-        {
-            bool doubleCaptureMove = false;
+        //public static bool IsDoubleCaptureMove(Player i_Player, Board i_Board, Move i_Move)
+        //{
+        //    bool doubleCaptureMove = false;
 
-            if(i_Board.GameBoard[i_Move.XFrom,i_Move.YFrom].PiecePointer.IsKing)
-            {
-                doubleCaptureMove = doubleCaptureMove || IsKingDoubleCaptureSimpleMove(i_Player, i_Board, i_Move);
-            }
-            else
-            {
-                doubleCaptureMove = doubleCaptureMove || IsDoubleCaptureSimpleMove(i_Player, i_Board, i_Move) ;
+        //    if(i_Board.GameBoard[i_Move.XFrom,i_Move.YFrom].PiecePointer.IsKing)
+        //    {
+        //        doubleCaptureMove = doubleCaptureMove || IsKingDoubleCaptureSimpleMove(i_Player, i_Board, i_Move);
+        //    }
+        //    else
+        //    {
+        //        doubleCaptureMove = doubleCaptureMove || IsDoubleCaptureSimpleMove(i_Player, i_Board, i_Move) ;
 
-            }
+        //    }
 
-            return doubleCaptureMove;
-        }
+        //    return doubleCaptureMove;
+        //}
 
-        public static bool IsDoubleCaptureSimpleMove(Player i_Player, Board i_Board, Move i_Move)
-        {
-            bool doubleCaptureMove = false;
+        //public static bool IsDoubleCaptureSimpleMove(Player i_Player, Board i_Board, Move i_Move)
+        //{
+        //    bool doubleCaptureMove = false;
 
-            if (i_Player.Side == ePlayerSide.Down)
-            {
-                doubleCaptureMove = IsDoubleCaptureMovePossiblePerSide(ePlayerSide.Down, i_Board, (int)ePlayerMoves.MoveUp, i_Move);
-            }
-            else
-            {
-                doubleCaptureMove = IsDoubleCaptureMovePossiblePerSide(ePlayerSide.Up, i_Board, (int)ePlayerMoves.MoveDown, i_Move);
-            }
+        //    if (i_Player.Side == ePlayerSide.Down)
+        //    {
+        //        doubleCaptureMove = IsDoubleCaptureMovePossiblePerSide(ePlayerSide.Down, i_Board, (int)ePlayerMoves.MoveUp, i_Move);
+        //    }
+        //    else
+        //    {
+        //        doubleCaptureMove = IsDoubleCaptureMovePossiblePerSide(ePlayerSide.Up, i_Board, (int)ePlayerMoves.MoveDown, i_Move);
+        //    }
 
-            return doubleCaptureMove;
-        }
+        //    return doubleCaptureMove;
+        //}
 
-        public static bool IsKingDoubleCaptureSimpleMove(Player i_Player, Board i_Board, Move i_Move)
-        {
-            bool doubleCaptureMove = false;
+        //public static bool IsKingDoubleCaptureSimpleMove(Player i_Player, Board i_Board, Move i_Move)
+        //{
+        //    bool doubleCaptureMove = false;
 
-            if (i_Player.Side == ePlayerSide.Down)
-            {
-                doubleCaptureMove = IsDoubleCaptureMovePossiblePerSide(ePlayerSide.Down, i_Board, (int)ePlayerMoves.MoveDown, i_Move);
-            }
-            else
-            {
-                doubleCaptureMove = IsDoubleCaptureMovePossiblePerSide(ePlayerSide.Up, i_Board, (int)ePlayerMoves.MoveUp, i_Move);
-            }
+        //    if (i_Player.Side == ePlayerSide.Down)
+        //    {
+        //        doubleCaptureMove = IsDoubleCaptureMovePossiblePerSide(ePlayerSide.Down, i_Board, (int)ePlayerMoves.MoveDown, i_Move);
+        //    }
+        //    else
+        //    {
+        //        doubleCaptureMove = IsDoubleCaptureMovePossiblePerSide(ePlayerSide.Up, i_Board, (int)ePlayerMoves.MoveUp, i_Move);
+        //    }
 
-            return doubleCaptureMove;
-        }
+        //    return doubleCaptureMove;
+        //}
 
-        public static bool IsDoubleCaptureMovePossiblePerSide(ePlayerSide i_Side, Board i_Board, int i_Direction, Move i_Move)
-        {
-            bool doubleCaptureMove = false;
+        //public static bool IsDoubleCaptureMovePossiblePerSide(ePlayerSide i_Side, Board i_Board, int i_Direction, Move i_Move)
+        //{
+        //    bool doubleCaptureMove = false;
 
-            if (IsInBorders(i_Board, i_Move.XTo + i_Direction, i_Move.YTo - i_Direction))
-            {
-                if (i_Board.GameBoard[i_Move.XTo + i_Direction, i_Move.YTo - i_Direction].PiecePointer != null)
-                { 
-                    if (i_Board.GameBoard[i_Move.XTo + i_Direction, i_Move.YTo - i_Direction].PiecePointer.Side == GetOtherSide(i_Side))
-                    {
-                        if (IsInBorders(i_Board, i_Move.XTo + 2 * i_Direction, i_Move.YTo - 2 * i_Direction))
-                        {
-                            if (i_Board.GameBoard[i_Move.XTo + 2 * i_Direction, i_Move.YTo - 2 * i_Direction].PiecePointer == null)
-                            {
-                                doubleCaptureMove = true;
-                            }
-                        }
-                    }
-                }
-            }
+        //    if (IsInBorders(i_Board, i_Move.XTo + i_Direction, i_Move.YTo - i_Direction))
+        //    {
+        //        if (i_Board.GameBoard[i_Move.XTo + i_Direction, i_Move.YTo - i_Direction].PiecePointer != null)
+        //        { 
+        //            if (i_Board.GameBoard[i_Move.XTo + i_Direction, i_Move.YTo - i_Direction].PiecePointer.Side == GetOtherSide(i_Side))
+        //            {
+        //                if (IsInBorders(i_Board, i_Move.XTo + 2 * i_Direction, i_Move.YTo - 2 * i_Direction))
+        //                {
+        //                    if (i_Board.GameBoard[i_Move.XTo + 2 * i_Direction, i_Move.YTo - 2 * i_Direction].PiecePointer == null)
+        //                    {
+        //                        doubleCaptureMove = true;
+        //                    }
+        //                }
+        //            }
+        //        }
+        //    }
 
-            if (IsInBorders(i_Board, i_Move.XTo + i_Direction, i_Move.YTo + i_Direction))
-            {
-                if (i_Board.GameBoard[i_Move.XTo + i_Direction, i_Move.YTo + i_Direction].PiecePointer != null)
-                {
-                    if (i_Board.GameBoard[i_Move.XTo + i_Direction, i_Move.YTo + i_Direction].PiecePointer.Side == GetOtherSide(i_Side))
-                    {
-                        if (IsInBorders(i_Board, i_Move.XTo + 2 * i_Direction, i_Move.YTo + 2 * i_Direction))
-                        {
-                            if (i_Board.GameBoard[i_Move.XTo + 2 * i_Direction, i_Move.YTo + 2 * i_Direction].PiecePointer == null)
-                            {
-                                doubleCaptureMove = true;
-                            }
-                        }
-                    }
-                }
-            }
+        //    if (IsInBorders(i_Board, i_Move.XTo + i_Direction, i_Move.YTo + i_Direction))
+        //    {
+        //        if (i_Board.GameBoard[i_Move.XTo + i_Direction, i_Move.YTo + i_Direction].PiecePointer != null)
+        //        {
+        //            if (i_Board.GameBoard[i_Move.XTo + i_Direction, i_Move.YTo + i_Direction].PiecePointer.Side == GetOtherSide(i_Side))
+        //            {
+        //                if (IsInBorders(i_Board, i_Move.XTo + 2 * i_Direction, i_Move.YTo + 2 * i_Direction))
+        //                {
+        //                    if (i_Board.GameBoard[i_Move.XTo + 2 * i_Direction, i_Move.YTo + 2 * i_Direction].PiecePointer == null)
+        //                    {
+        //                        doubleCaptureMove = true;
+        //                    }
+        //                }
+        //            }
+        //        }
+        //    }
 
-            return doubleCaptureMove;
-        }
+        //    return doubleCaptureMove;
+        //}
 
         public static bool IsPieceHavePossibleMove(Player i_Player, Board i_Board, Piece i_Piece)
         {
             bool pieceHavePossibleMove = false;
 
-            pieceHavePossibleMove = isSimpleMovePossiblePerPiece(i_Player, i_Board, i_Piece);
-            pieceHavePossibleMove = isCapturePossiblePerPiece(i_Player, i_Board, i_Piece);
+            pieceHavePossibleMove = pieceHavePossibleMove || isSimpleMovePossiblePerPiece(i_Player, i_Board, i_Piece);
+            pieceHavePossibleMove = pieceHavePossibleMove || isCapturePossiblePerPiece(i_Player, i_Board, i_Piece);
 
             return pieceHavePossibleMove;
         }
