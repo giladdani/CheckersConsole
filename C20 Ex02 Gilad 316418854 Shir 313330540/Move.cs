@@ -14,7 +14,6 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         // Constructors
         public Move()
         {
-
         }
 
         public Move(int i_YFrom, int i_XFrom, int i_YTo, int i_XTo)
@@ -48,6 +47,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                 return m_XFrom;
             }
         }
+
         public int YFrom
         {
             get
@@ -55,6 +55,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                 return m_YFrom;
             }
         }
+
         public int XTo
         {
             get
@@ -62,6 +63,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                 return m_XTo;
             }
         }
+
         public int YTo
         {
             get
@@ -69,12 +71,14 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                 return m_YTo;
             }
         }
+
         public bool IsQuit
         {
             get
             {
                 return m_IsQuit;
             }
+
             set
             {
                 m_IsQuit = value;

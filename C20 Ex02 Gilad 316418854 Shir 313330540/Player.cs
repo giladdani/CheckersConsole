@@ -4,7 +4,6 @@ using System.Drawing;
 using System.Collections.Generic;
 using System.Threading;
 
-
 namespace C20_Ex02_Gilad_316418854_Shir_313330540
 {
     public class Player
@@ -38,7 +37,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                 startRow = 0;
                 endRow = (i_BoardSize / 2) - 1;
             }
-            else //i_Side=Down
+            else
             {
                 startRow = (i_BoardSize / 2) + 1;
                 endRow = i_BoardSize;
@@ -80,7 +79,8 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                 {
                     hasMove = true;
                 }
-}
+            }
+
             return hasMove;
         }
 
@@ -123,6 +123,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                 return m_Name;
             }
         }
+
         public ePlayerSide Side
         {
             get
@@ -130,6 +131,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                 return m_Side;
             }
         }
+
         public List<Piece> Pieces
         {
             get
@@ -137,12 +139,14 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                 return m_Pieces;
             }
         }
+
         public int TotalScore
         {
             get
             {
                 return m_TotalScore;
             }
+
             set
             {
                 if(value >= 0)
@@ -151,12 +155,14 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                 }
             }
         }
+
         public bool IsAi
         {
             get
             {
                 return m_IsAi;
             }
+
             set
             {
                 m_IsAi = value;

@@ -48,7 +48,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             m_GameBoard[i_Piece.Location.X, i_Piece.Location.Y].PiecePointer = null;
             i_Piece.Location = i_To;
             m_GameBoard[i_To.X, i_To.Y].PiecePointer = i_Piece;
-            if(i_To.X == 0 || i_To.X == Size-1)
+            if(i_To.X == 0 || i_To.X == Size - 1)
             {
                 i_Piece.IsKing = true;
             }
@@ -59,7 +59,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         {
             i_EnemyPlayer.Pieces.Remove(m_GameBoard[(i_Piece.Location.X + i_To.X) / 2, (i_Piece.Location.Y + i_To.Y) / 2].PiecePointer);
             m_GameBoard[i_Piece.Location.X, i_Piece.Location.Y].PiecePointer = null;
-            m_GameBoard[(i_Piece.Location.X+i_To.X)/2, (i_Piece.Location.Y+ i_To.Y)/2].PiecePointer.IsCaptured = true;
+            m_GameBoard[(i_Piece.Location.X + i_To.X) / 2, (i_Piece.Location.Y + i_To.Y) / 2].PiecePointer.IsCaptured = true;
             m_GameBoard[(i_Piece.Location.X + i_To.X) / 2, (i_Piece.Location.Y + i_To.Y) / 2].PiecePointer = null;
             i_Piece.Location = i_To;
             m_GameBoard[i_To.X, i_To.Y].PiecePointer = i_Piece;
@@ -69,7 +69,6 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             }
         }
 
-
         // Properties
         public int Size
         {
@@ -78,6 +77,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                 return m_Size;
             }
         }
+
         public Square[,] GameBoard
         {
             get

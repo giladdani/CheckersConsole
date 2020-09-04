@@ -58,11 +58,11 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             {
                 if(piece.IsKing)
                 {
-                    canCapture = (canCapture || IsKingCapturePossible(i_Player, i_Board, piece));
+                    canCapture = canCapture || IsKingCapturePossible(i_Player, i_Board, piece);
                 }
                 else 
                 {
-                    canCapture = (canCapture || isCapturePossiblePerPiece(i_Player, i_Board, piece));
+                    canCapture = canCapture || isCapturePossiblePerPiece(i_Player, i_Board, piece);
                 }
             }
             
@@ -77,9 +77,9 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             {
                 if (i_Board.GameBoard[i_Piece.Location.X + i_Direction, i_Piece.Location.Y - i_Direction].PiecePointer.Side == GetOtherSide(i_Side))
                 {
-                    if (IsInBorders(i_Board, i_Piece.Location.X + 2 * i_Direction, i_Piece.Location.Y - 2 * i_Direction))
+                    if (IsInBorders(i_Board, i_Piece.Location.X + (2 * i_Direction), i_Piece.Location.Y - (2 * i_Direction)))
                     {
-                        if (i_Board.GameBoard[i_Piece.Location.X + 2 * i_Direction, i_Piece.Location.Y - 2 * i_Direction].PiecePointer == null)
+                        if (i_Board.GameBoard[i_Piece.Location.X + (2 * i_Direction), i_Piece.Location.Y - (2 * i_Direction)].PiecePointer == null)
                         {
                             captureMovePossible = true;
                         }
@@ -91,14 +91,13 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             {
                 if (i_Board.GameBoard[i_Piece.Location.X + i_Direction, i_Piece.Location.Y + i_Direction].PiecePointer.Side == GetOtherSide(i_Side))
                 {
-                    if(IsInBorders(i_Board,i_Piece.Location.X + 2 * i_Direction, i_Piece.Location.Y + 2 * i_Direction))
+                    if(IsInBorders(i_Board, i_Piece.Location.X + (2 * i_Direction), i_Piece.Location.Y + (2 * i_Direction)))
                     {
-                        if (i_Board.GameBoard[i_Piece.Location.X + 2 * i_Direction, i_Piece.Location.Y + 2 * i_Direction].PiecePointer == null)
+                        if (i_Board.GameBoard[i_Piece.Location.X + (2 * i_Direction), i_Piece.Location.Y + (2 * i_Direction)].PiecePointer == null)
                         {
                             captureMovePossible = true;
                         }
                     }
-                        
                 }
             }
             
@@ -132,7 +131,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                 // if row diff is 1
                 if (Math.Abs(i_Move.XTo - i_Move.XFrom) == 1)
                 {
-                    simpleMove = (IsKingMoveDiagonalLine(i_Player, i_Move) || IsSimpleMovePossible(i_Player, i_Board, i_Move));
+                    simpleMove = IsKingMoveDiagonalLine(i_Player, i_Move) || IsSimpleMovePossible(i_Player, i_Board, i_Move);
                 }
             }
 
@@ -159,9 +158,6 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                     }
                 }
 
-            
-
-                // check valid move for king piece
                 if (i_Board.GameBoard[i_Move.XFrom, i_Move.YFrom].PiecePointer.IsKing)
                 {
                     if (IsKingMoveDiagonalLine(i_Player, i_Move))
@@ -170,6 +166,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                     }
                 }
             }
+
             return possible;
         }
 
@@ -246,14 +243,13 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
 
             if (i_Piece.IsKing == false)
             {
-                if(i_Player.Side==ePlayerSide.Down)
+                if(i_Player.Side == ePlayerSide.Down)
                 {
                     pieceHavePossibleMove = isSimpleMovePossiblePerPieceBySide(i_Board, i_Piece, (int)ePlayerMoves.MoveUp);
                 }
                 else
                 {
                     pieceHavePossibleMove = isSimpleMovePossiblePerPieceBySide(i_Board, i_Piece, (int)ePlayerMoves.MoveDown);
-
                 }
             }
             else
@@ -266,7 +262,6 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                 {
                     pieceHavePossibleMove = isSimpleMovePossiblePerPieceBySide(i_Board, i_Piece, (int)ePlayerMoves.MoveUp);
                 }
-
             }
 
             return pieceHavePossibleMove;
@@ -283,6 +278,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                     pieceHavePossibleMove = true;
                 }
             }
+
             if (IsInBorders(i_Board, i_Piece.Location.X + i_Direction, i_Piece.Location.Y - i_Direction))
             {
                 if (i_Board.GameBoard[i_Piece.Location.X + i_Direction, i_Piece.Location.Y - i_Direction].PiecePointer == null)
@@ -296,37 +292,20 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
 
         public static ePlayerSide GetOtherSide(ePlayerSide i_Side)
         {
-            ePlayerSide side = (i_Side==ePlayerSide.Down) ? ePlayerSide.Up : ePlayerSide.Down;
+            ePlayerSide side = (i_Side == ePlayerSide.Down) ? ePlayerSide.Up : ePlayerSide.Down;
 
             return side;
         }
 
-        //public static bool IsKingCapturePossible(Player i_Player, Board i_Board, Move i_Move)
-        //{
-        //    bool KingCapturePossible = false;
-
-        //    if (i_Player.Side == ePlayerSide.Down)
-        //    {
-        //        KingCapturePossible = IsCaptureMovePossiblePerSide(ePlayerSide.Down, i_Board, (int)ePlayerMoves.MoveDown, i_Move);
-        //    }
-        //    else
-        //    {
-        //        KingCapturePossible = IsCaptureMovePossiblePerSide(ePlayerSide.Up, i_Board, (int)ePlayerMoves.MoveUp, i_Move);
-        //    }
-
-        //    return KingCapturePossible;
-        //}
-
         public static bool IsInBorders(Board i_Board, int i_X, int i_Y)
         {
             bool inBorders = false;
-            if (0 <= i_X && i_X < i_Board.Size && 0 <= i_Y && i_Y < i_Board.Size)
+            if (i_X >= 0 && i_X < i_Board.Size && i_Y >= 0 && i_Y < i_Board.Size)
             {
                 inBorders = true;
             }
 
             return inBorders;
         }
-       
     }
 }

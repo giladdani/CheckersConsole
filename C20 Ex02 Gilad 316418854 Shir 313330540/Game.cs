@@ -48,11 +48,11 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                         {
                             moveFeedback = eMoveFeedback.FailedCouldCapture;
                         }
-                        else //Execute
+                        else
                         {
                             if(m_Board.GameBoard[i_Move.XFrom, i_Move.YFrom].PiecePointer.IsKing == false)
                             {
-                                if ((CurrentPlayer.Side==ePlayerSide.Down && i_Move.XFrom < i_Move.XTo) || (CurrentPlayer.Side == ePlayerSide.Up && i_Move.XFrom > i_Move.XTo))
+                                if ((CurrentPlayer.Side == ePlayerSide.Down && i_Move.XFrom < i_Move.XTo) || (CurrentPlayer.Side == ePlayerSide.Up && i_Move.XFrom > i_Move.XTo))
                                 {
                                     moveFeedback = eMoveFeedback.Failed;
                                 }
@@ -73,7 +73,6 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                             }
                         }
                     }
-                    // capture move
                     else if (MoveValidator.IsCaptureMovePossible(CurrentPlayer, m_Board, i_Move))
                     {
                         Player enemyPlayer = CurrentPlayer == PlayerOne ? PlayerTwo : PlayerOne;
@@ -92,7 +91,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                     }
                 }
             }
-            else  // move is "Q"
+            else
             {
                 moveFeedback = eMoveFeedback.Quit;
             }
@@ -147,6 +146,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                 return m_PlayerOne;
             }
         }
+
         public Player PlayerTwo
         {
             get
@@ -154,6 +154,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                 return m_PlayerTwo; 
             }
         }
+
         public Player CurrentPlayer
         {
             get
@@ -171,6 +172,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                 return player;
             }
         }
+
         public Player LastPlayer
         {
             get
@@ -178,6 +180,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                 return m_LastPlayer;
             }
         }
+
         public Board Board
         {
             get
@@ -185,12 +188,14 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                 return m_Board;
             }
         }
+
         public int TurnCount
         {
             get
             {
                 return m_TurnCount;
             }
+
             set
             {
                 if(value > 0)
@@ -199,12 +204,14 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                 }
             }
         }
+
         public bool AiMode
         {
             get
             {
                 return m_AiMode;
             }
+
             set
             {
                 m_AiMode = value;

@@ -47,6 +47,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                 {
                     break;
                 }
+                
                 lastMove = MoveValidator.ConvertMoveToString(currentMove);
             }
 
@@ -114,13 +115,14 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                         Console.WriteLine("Failed, you can capture!");
                         break;
                     }
+
                 case eMoveFeedback.CanDoubleCapture:
                     {
-
                         reprintBoard();
                         Console.WriteLine("You can double capture! play another turn.");
                         break;
                     }
+
                 case eMoveFeedback.Failed:
                     {
                         Console.WriteLine("Invalid move. try again.");
@@ -187,7 +189,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                 sizeString = Console.ReadLine();
             }
 
-            return (int.Parse(sizeString));
+            return int.Parse(sizeString);
         }
 
         // Returns true if the user chose to play against AI

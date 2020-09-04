@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Runtime.InteropServices;
@@ -27,11 +26,9 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         // Public Methods
         public bool HasPossibleMoves(Player i_Player, Board i_CurrentBoard)
         {
-            return (MoveValidator.IsPieceHavePossibleMove(i_Player, i_CurrentBoard, this));
-
+            return MoveValidator.IsPieceHavePossibleMove(i_Player, i_CurrentBoard, this);
         }
 
-        // Returns a list of the piece's possible moves
         public List<Move> GetAvailableMovesList(Player i_Player, Board i_Board, out Move i_PossibleCapture)
         {
             List<Move> movesList = new List<Move>();
@@ -45,7 +42,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                 }
                 else
                 {
-                    addKingsMovesToList(i_Player, i_Board, movesList , ref i_PossibleCapture);
+                    addKingsMovesToList(i_Player, i_Board, movesList, ref i_PossibleCapture);
                 }
             }
 
@@ -111,7 +108,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                 {
                     if(MoveValidator.IsInBorders(i_Board, i_Move.XFrom - 1, i_Move.YFrom + i_Direction))
                     {
-                        if((i_Board.GameBoard[i_Move.XFrom - 1, i_Move.YFrom + i_Direction].PiecePointer != null))
+                        if(i_Board.GameBoard[i_Move.XFrom - 1, i_Move.YFrom + i_Direction].PiecePointer != null)
                         {
                             if (i_Board.GameBoard[i_Move.XFrom - 1, i_Move.YFrom + i_Direction].PiecePointer.Side == MoveValidator.GetOtherSide(this.Side))
                             {
@@ -121,8 +118,10 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                     }
                 }
             }
+
             return captureMove;
         }
+
         private bool checkKingCapture(Board i_Board, int i_Direction, Move i_Move)
         {
             bool captureMove = false;
@@ -134,12 +133,11 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                     {
                         captureMove = true;
                     }
-
                 }
             }
+
             return captureMove;
         }
-
 
         // Private Methods
         private void addSimpleMovesUpside(List<Move> i_MovesList, Board i_Board)
@@ -176,7 +174,6 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                     i_MovesList.Add(new Move(this.Location.Y, this.Location.X, this.Location.Y - 2, this.Location.X + 2));
                 }
             }
-
         }
 
         // Properties
@@ -187,48 +184,44 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                 return r_Side;
             }
         }
+
         public Point Location
         {
             get
             {
                 return m_Location;
             }
+
             set
             {
                 m_Location = value;
             }
         }
+
         public bool IsKing
         {
             get
             {
                 return m_IsKing;
             }
+
             set
             {
-
                 m_IsKing = true;
-
             }
         }
+
         public bool IsCaptured
         {
             get
             {
                 return m_IsCaptured;
             }
+
             set
             {
                 m_IsCaptured = true;
-
             }
         }
     }
 }
-
-
-
-
-
-
-

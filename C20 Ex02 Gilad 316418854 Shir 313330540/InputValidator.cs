@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Drawing;
 
-
 namespace C20_Ex02_Gilad_316418854_Shir_313330540
 {
     public class InputValidator
@@ -10,20 +9,20 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         public static bool IsBoardSizeValid(string i_BoardSizeString)
         {
             bool isValidNumber = int.TryParse(i_BoardSizeString, out int size);
-            return (isValidNumber && (size == 6 || size == 8 || size == 10));
+            return isValidNumber && (size == 6 || size == 8 || size == 10);
         }
 
         // Returns true if the given name is valid
         public static bool IsNameValid(string i_Name)
         {
-            return (i_Name != null && !(i_Name.Contains(" ")) && i_Name.Length <= 20);
+            return i_Name != null && !i_Name.Contains(" ") && i_Name.Length <= 20;
         }
 
         // Returns true if the given string represents a valid game mode choice
         public static bool IsValidGameType(string i_Choice)
         {
             bool isValidNumber = int.TryParse(i_Choice, out int type);
-            return (isValidNumber && (type == 1 || type == 2));
+            return isValidNumber && (type == 1 || type == 2);
         }
 
         // Returns true if the move is valid in terms of syntax (charchar>charchar)
@@ -32,7 +31,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             bool isSeparatorValid = true;
             bool isLettersValid = true;
             bool isLengthValid = i_Move.Length == 5;        // TODO define 5?
-            bool isQuitMove = (i_Move == "Q");
+            bool isQuitMove = i_Move == "Q";
 
             if(isLengthValid)
             {
@@ -40,9 +39,9 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                 isLettersValid = isMoveLettersValid(i_Move, i_BoardSize);
             }
 
-            return (isQuitMove || (isLengthValid && isSeparatorValid && isLettersValid));
+            return isQuitMove || (isLengthValid && isSeparatorValid && isLettersValid);
         }
-        // Returns true if the letters of the move are in the right format
+
         private static bool isMoveLettersValid(string i_Move, int i_BoardSize)
         {
             bool[] isLetterValid = { true, true, true, true };
@@ -71,8 +70,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                 isLetterValid[3] = i_Move[4] >= 'a' && i_Move[4] <= 'j';
             }
 
-            return (isLetterValid[0] && isLetterValid[1] && isLetterValid[2] && isLetterValid[3]);
+            return isLetterValid[0] && isLetterValid[1] && isLetterValid[2] && isLetterValid[3];
         }
-
     }
 }
