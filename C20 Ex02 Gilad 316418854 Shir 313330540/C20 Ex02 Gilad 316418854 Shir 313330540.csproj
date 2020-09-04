@@ -56,6 +56,7 @@
     <Compile Include="eMoveFeedback.cs" />
     <Compile Include="ePlayerMoves.cs" />
     <Compile Include="ePlayerSide.cs" />
+    <Compile Include="eRoundResult.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="InputValidator.cs" />
     <Compile Include="Move.cs" />

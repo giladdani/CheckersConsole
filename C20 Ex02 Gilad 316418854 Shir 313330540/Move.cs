@@ -12,6 +12,19 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         private bool m_IsQuit;
 
         // Constructors
+        public Move()
+        {
+
+        }
+
+        public Move(int i_YFrom, int i_XFrom, int i_YTo, int i_XTo)
+        {
+            m_YFrom = i_YFrom;
+            m_XFrom = i_XFrom;
+            m_YFrom = i_YFrom;
+            m_XFrom = i_XFrom;
+        }
+
         public Move(string i_Move)
         {
             if(i_Move[0] == 'Q')

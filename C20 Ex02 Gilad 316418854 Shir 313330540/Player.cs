@@ -2,6 +2,7 @@
 using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.Collections.Generic;
+using System.Threading;
 
 
 namespace C20_Ex02_Gilad_316418854_Shir_313330540
@@ -78,42 +79,31 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             foreach(Piece piece in m_Pieces)
             {
                 // if piece can move/capture
-                if(piece.HasPossibleMoves(this,i_CurrentBoard));
+                if(piece.HasPossibleMoves(i_CurrentBoard, this))
                 {
                     hasMove = true;
                 }
 }
-
             return hasMove;
         }
 
         // Returns a random generated move for the player
-        //public Move GenerateRandomMove(Board i_CurrentBoard)       TODO
-        //{
-        //    foreach(Piece piece in m_Pieces)
-        //    {
-        //        if(piece.IsKing)
-        //        {
-        //            if(MoveValidator.IsKingCapturePossible(this, i_CurrentBoard, piece))
-        //            {
-        //                move = piece.GetPossibleMove();
-        //            }
-                    
-        //        }
-        //        else
-        //        {
-        //            if(MoveValidator.IsCapturePossible(this, i_CurrentBoard, piece))
-        //            {
-
-        //            }
-        //            //else if( piece can do simple move)
-        //        }
-
-        //        Move move = piece.GetPossibleMove(i_CurrentBoard);
-        //    }
-            
-        //    return move;
-        //}
+        public Move GenerateRandomMove(Board i_CurrentBoard)
+        {
+            int randMoveIndex = 0;
+            List<Move> availableMoves = new List<Move>();
+            foreach(Piece piece in m_Pieces)
+            {
+                availableMoves = piece.GetAvailableMovesList(this, i_CurrentBoard);
+                if(availableMoves.Count > 0)
+                {
+                    Random randMoveSelector = new Random();
+                    randMoveIndex = randMoveSelector.Next(availableMoves.Count - 1);
+                }
+            }
+          
+            return availableMoves[randMoveIndex];
+        }
 
         // Properties
         public string Name
