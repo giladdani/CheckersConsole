@@ -29,27 +29,26 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             return MoveValidator.IsPieceHavePossibleMove(i_Player, i_CurrentBoard, this);
         }
 
-        public List<Move> GetAvailableMovesList(Player i_Player, Board i_Board, out Move i_PossibleCapture)
+        public List<Move> GetAvailableMovesList(Player i_Player, Board i_Board, ref bool capturePossible)
         {
             List<Move> movesList = new List<Move>();
-            i_PossibleCapture = null;
 
             if (MoveValidator.IsPieceHavePossibleMove(i_Player, i_Board, this))
             {
                 if (!this.IsKing)
                 {
-                    addNotKingsMovesToList(i_Player, i_Board, movesList, ref i_PossibleCapture);
+                    addNotKingsMovesToList(i_Player, i_Board, movesList, ref capturePossible);
                 }
                 else
                 {
-                    addKingsMovesToList(i_Player, i_Board, movesList, ref i_PossibleCapture);
+                    addKingsMovesToList(i_Player, i_Board, movesList, ref capturePossible);
                 }
             }
 
             return movesList;
         }
 
-        private void addNotKingsMovesToList(Player i_Player, Board i_Board, List<Move> i_MovesList, ref Move i_PossibleCapture)
+        private void addNotKingsMovesToList(Player i_Player, Board i_Board, List<Move> i_MovesList, ref bool capturePossible)
         {
             if (MoveValidator.IsSimpleMove(i_Player, i_Board, new Move(this.Location.Y, this.Location.X, this.Location.Y + 1, this.Location.X - 1)))
             {
@@ -64,17 +63,17 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             if (checkCapture(i_Board, -1, new Move(this.Location.Y, this.Location.X, this.Location.Y - 2, this.Location.X - 2)))
             {
                 i_MovesList.Add(new Move(this.Location.Y, this.Location.X, this.Location.Y - 2, this.Location.X - 2));
-                i_PossibleCapture = new Move(this.Location.Y, this.Location.X, this.Location.Y - 2, this.Location.X - 2);
+                capturePossible = true;
             }
 
             if (checkCapture(i_Board, 1, new Move(this.Location.Y, this.Location.X, this.Location.Y + 2, this.Location.X - 2)))
             {
                 i_MovesList.Add(new Move(this.Location.Y, this.Location.X, this.Location.Y + 2, this.Location.X - 2));
-                i_PossibleCapture = new Move(this.Location.Y, this.Location.X, this.Location.Y + 2, this.Location.X - 2);
+                capturePossible = true;
             }
         }
 
-        private void addKingsMovesToList(Player i_Player, Board i_Board, List<Move> i_MovesList, ref Move i_PossibleCapture)
+        private void addKingsMovesToList(Player i_Player, Board i_Board, List<Move> i_MovesList, ref bool capturePossible)
         {
             if (MoveValidator.IsSimpleMove(i_Player, i_Board, new Move(this.Location.Y, this.Location.X, this.Location.Y + 1, this.Location.X + 1)))
             {
@@ -89,13 +88,13 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             if (checkKingCapture(i_Board, -1, new Move(this.Location.Y, this.Location.X, this.Location.Y - 2, this.Location.X + 2)))
             {
                 i_MovesList.Add(new Move(this.Location.Y, this.Location.X, this.Location.Y - 2, this.Location.X - 2));
-                i_PossibleCapture = new Move(this.Location.Y, this.Location.X, this.Location.Y - 2, this.Location.X - 2);
+                capturePossible = true;
             }
 
             if (checkKingCapture(i_Board, 1, new Move(this.Location.Y, this.Location.X, this.Location.Y + 2, this.Location.X + 2)))
             {
                 i_MovesList.Add(new Move(this.Location.Y, this.Location.X, this.Location.Y + 2, this.Location.X - 2));
-                i_PossibleCapture = new Move(this.Location.Y, this.Location.X, this.Location.Y + 2, this.Location.X - 2);
+                capturePossible = true;
             }
         }
 

@@ -2,6 +2,7 @@
 using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using System.Threading;
 
 namespace C20_Ex02_Gilad_316418854_Shir_313330540
@@ -88,21 +89,21 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         public Move GenerateRandomMove(Board i_Board)
         {
             Move chosenMove = null;
-            Move possibleCapture = null;
+            bool capturePossible = false;
             List<List<Move>> allPiecesMoves = new List<List<Move>>();
 
             foreach (Piece piece in m_Pieces)
             {
-                List<Move> pieceMoves = piece.GetAvailableMovesList(this, i_Board, out possibleCapture);
+                List<Move> pieceMoves = piece.GetAvailableMovesList(this, i_Board, ref capturePossible);
                 if (pieceMoves.Count > 0)
                 {
                     allPiecesMoves.Add(pieceMoves);
                 }
             }
 
-            if(possibleCapture != null)
+            if(capturePossible)
             {
-                chosenMove = possibleCapture;
+                chosenMove = findCaptureMove(i_Board, allPiecesMoves);
             }
             else
             {
@@ -113,6 +114,24 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             }
 
             return chosenMove;
+        }
+
+        private Move findCaptureMove(Board i_Board, List<List<Move>> i_AllMovesList)
+        {
+            Move captureMove = null;
+
+            foreach(List<Move> list in i_AllMovesList)
+            {
+                foreach(Move move in list)
+                {
+                    if(MoveValidator.IsCaptureMovePossible(this, i_Board, move))
+                    {
+                        captureMove = move;
+                    }
+                }
+            }
+
+            return captureMove;
         }
 
         // Properties
