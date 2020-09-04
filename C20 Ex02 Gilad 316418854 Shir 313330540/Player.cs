@@ -78,7 +78,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             foreach(Piece piece in m_Pieces)
             {
                 // if piece can move/capture
-                if(piece.HasPossibleMoves(i_CurrentBoard));
+                if(piece.HasPossibleMoves(this,i_CurrentBoard));
                 {
                     hasMove = true;
                 }

@@ -36,7 +36,8 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
 
                 Move currentMove = getMove(out lastMove);
                 eMoveFeedback moveFeedback = m_CurrentGame.ExecuteMove(currentMove);
-                while(moveFeedback != eMoveFeedback.Success && moveFeedback != eMoveFeedback.Quit)
+              
+                while (moveFeedback != eMoveFeedback.Success && moveFeedback != eMoveFeedback.Quit)
                 {
                     printFeedback(moveFeedback);
                     currentMove = getMove(out lastMove);
@@ -59,12 +60,12 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         // Gets a move from the user    TODO
         private Move getMove(out string o_moveString)
         {
-            if (m_CurrentGame.CurrentPlayer.IsAi)
-            {
-                Move move = m_CurrentGame.CurrentPlayer.GenerateRandomMove(m_CurrentGame.Board);
-            }
-            else
-            {
+            //if (m_CurrentGame.CurrentPlayer.IsAi)
+            //{
+            //    Move move = m_CurrentGame.CurrentPlayer.GenerateRandomMove(m_CurrentGame.Board);
+            //}
+            //else
+           // {
                 StringBuilder turnMessage = new StringBuilder();
                 turnMessage.Append(m_CurrentGame.CurrentPlayer.Name);
                 turnMessage.Append("'s Turn ");
@@ -77,7 +78,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                     moveString = Console.ReadLine();
                 }
                 Move move = new Move(moveString);
-            }
+           // }
 
             o_moveString = moveString;
             return move;
