@@ -49,8 +49,6 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             return captureMovePossible;
         }
 
-
-        // Public Methods
         public static bool IsPlayerHasCapture(Player i_Player, Board i_Board)
         {
             bool canCapture = false;
@@ -74,34 +72,39 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         {
             bool captureMovePossible = false;
 
-            if (IsInBorders(i_Board, i_Piece.Location.X + i_Direction, i_Piece.Location.Y - i_Direction) && i_Board.GameBoard[i_Piece.Location.X + i_Direction, i_Piece.Location.Y - i_Direction].PiecePointer != null)
+            if(IsInBorders(i_Board, i_Piece.Location.X + i_Direction, i_Piece.Location.Y - i_Direction)
+               && i_Board.GameBoard[i_Piece.Location.X + i_Direction, i_Piece.Location.Y - i_Direction].PiecePointer
+               != null)
             {
-                if (i_Board.GameBoard[i_Piece.Location.X + i_Direction, i_Piece.Location.Y - i_Direction].PiecePointer.Side == GetOtherSide(i_Side))
+                if(i_Board.GameBoard[i_Piece.Location.X + i_Direction, i_Piece.Location.Y - i_Direction].PiecePointer
+                       .Side == GetOtherSide(i_Side))
                 {
-                    if (IsInBorders(i_Board, i_Piece.Location.X + 2 * i_Direction, i_Piece.Location.Y - 2 * i_Direction))
+                    if(IsInBorders(i_Board, i_Piece.Location.X + 2 * i_Direction, i_Piece.Location.Y - 2 * i_Direction))
                     {
-                        if (i_Board.GameBoard[i_Piece.Location.X + 2 * i_Direction, i_Piece.Location.Y - 2 * i_Direction].PiecePointer == null)
+                        if(i_Board.GameBoard[i_Piece.Location.X + 2 * i_Direction, i_Piece.Location.Y - 2 * i_Direction]
+                               .PiecePointer == null)
                         {
                             captureMovePossible = true;
                         }
                     }
                 }
+            }
 
-                if (IsInBorders(i_Board, i_Piece.Location.X + i_Direction, i_Piece.Location.Y + i_Direction) && i_Board.GameBoard[i_Piece.Location.X + i_Direction, i_Piece.Location.Y + i_Direction].PiecePointer != null)
+            if (IsInBorders(i_Board, i_Piece.Location.X + i_Direction, i_Piece.Location.Y + i_Direction) && i_Board.GameBoard[i_Piece.Location.X + i_Direction, i_Piece.Location.Y + i_Direction].PiecePointer != null)
+            {
+                if (i_Board.GameBoard[i_Piece.Location.X + i_Direction, i_Piece.Location.Y + i_Direction].PiecePointer.Side == GetOtherSide(i_Side))
                 {
-                    if (i_Board.GameBoard[i_Piece.Location.X + i_Direction, i_Piece.Location.Y + i_Direction].PiecePointer.Side == GetOtherSide(i_Side))
+                    if(IsInBorders(i_Board,i_Piece.Location.X + 2 * i_Direction, i_Piece.Location.Y + 2 * i_Direction))
                     {
-                        if(IsInBorders(i_Board,i_Piece.Location.X + 2 * i_Direction, i_Piece.Location.Y + 2 * i_Direction))
+                        if (i_Board.GameBoard[i_Piece.Location.X + 2 * i_Direction, i_Piece.Location.Y + 2 * i_Direction].PiecePointer == null)
                         {
-                            if (i_Board.GameBoard[i_Piece.Location.X + 2 * i_Direction, i_Piece.Location.Y + 2 * i_Direction].PiecePointer == null)
-                            {
-                                captureMovePossible = true;
-                            }
+                            captureMovePossible = true;
                         }
-                        
                     }
+                    
                 }
             }
+
             return captureMovePossible;
         }
 
@@ -310,13 +313,13 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             return doubleCaptureMove;
         }
 
-
         public static bool IsPieceHavePossibleMove(Player i_Player, Board i_Board, Piece i_Piece)
         {
             bool pieceHavePossibleMove = false;
 
             pieceHavePossibleMove = isSimpleMovePossiblePerPiece(i_Player, i_Board, i_Piece);
             pieceHavePossibleMove = isCapturePossiblePerPiece(i_Player, i_Board, i_Piece);
+
             return pieceHavePossibleMove;
         }
 
@@ -348,13 +351,14 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                 }
 
             }
-            return pieceHavePossibleMove;
 
+            return pieceHavePossibleMove;
         }
 
-        private static bool isSimpleMovePossiblePerPieceBySide( Board i_Board, Piece i_Piece, int i_Direction)
+        private static bool isSimpleMovePossiblePerPieceBySide(Board i_Board, Piece i_Piece, int i_Direction)
         {
             bool pieceHavePossibleMove = false;
+
             if (IsInBorders(i_Board, i_Piece.Location.X + i_Direction, i_Piece.Location.Y + i_Direction))
             {
                 if (i_Board.GameBoard[i_Piece.Location.X + i_Direction, i_Piece.Location.Y + i_Direction].PiecePointer == null)
@@ -369,6 +373,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                     pieceHavePossibleMove = true;
                 }
             }
+
             return pieceHavePossibleMove;
         }
 

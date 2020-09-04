@@ -31,19 +31,22 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                 reprintBoard();
                 if(m_CurrentGame.TurnCount > 1)
                 {
-                    printLastTurnMessage(lastMove);
+                    printLastTurn(lastMove);
                 }
 
-                Move currentMove = getMove(out lastMove);
+                Move currentMove = getMove(/*out lastMove*/);
                 eMoveFeedback moveFeedback = m_CurrentGame.ExecuteMove(currentMove);
                 while(moveFeedback != eMoveFeedback.Success && moveFeedback != eMoveFeedback.Quit)
                 {
                     printFeedback(moveFeedback);
-                    currentMove = getMove(out lastMove);
+                    currentMove = getMove(/*out lastMove*/);
                     moveFeedback = m_CurrentGame.ExecuteMove(currentMove);
                 }
+
+                lastMove = MoveValidator.ConvertMoveToString(currentMove);
             }
 
+            m_CurrentGame.CalculateScores();
             printTotalScores();
             if(playAgain())
             {
@@ -53,7 +56,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
 
         // Private Methods
         // Gets a move from the user
-        private Move getMove(out string io_MoveString)
+        private Move getMove(/*out string io_MoveString*/)      // TODO delete io_MoveString if new version worked 
         {
             Move move;
             string moveString;
@@ -61,7 +64,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             if (m_CurrentGame.CurrentPlayer.IsAi)
             {
                 move = m_CurrentGame.CurrentPlayer.GenerateRandomMove(m_CurrentGame.Board);
-                moveString = MoveValidator.ConvertMoveToString(move);
+                //moveString = MoveValidator.ConvertMoveToString(move);  // TODO delete io_MoveString if new version worked 
             }
             else
             {
@@ -80,14 +83,23 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                 move = new Move(moveString);
             }
 
-            io_MoveString = moveString;
+            //io_MoveString = moveString;       // TODO delete if new version worked
             return move;
         }
 
         // Prints current player scores
         private void printTotalScores()
         {
-
+            StringBuilder totalScores = new StringBuilder();
+            totalScores.Append(m_CurrentGame.PlayerOne.Name);
+            totalScores.Append("'s score: ");
+            totalScores.Append(m_CurrentGame.PlayerOne.TotalScore);
+            Console.WriteLine(totalScores);
+            totalScores.Clear();
+            totalScores.Append(m_CurrentGame.PlayerTwo.Name);
+            totalScores.Append("'s score: ");
+            totalScores.Append(m_CurrentGame.PlayerTwo.TotalScore);
+            Console.WriteLine(totalScores);
         }
 
         // Prints the feedback from the last move
@@ -115,12 +127,6 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             }
         }
 
-        // Print final players Scores
-        private void printFinalScores()
-        {
-            // TODO
-        }
-
         // Returns true if the user input is another game
         private bool playAgain()
         {
@@ -136,7 +142,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         }
 
         // Prints the last players name with it's last move
-        private void printLastTurnMessage(string i_LastMove)
+        private void printLastTurn(string i_LastMove)
         {
             StringBuilder lastTurnMessage = new StringBuilder(m_CurrentGame.LastPlayer.Name);
             lastTurnMessage.Append("'s move was ");
@@ -145,6 +151,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             Console.WriteLine(lastTurnMessage);
         }
 
+        // Clears the Console and prints the current board
         private void reprintBoard()
         {
             Ex02.ConsoleUtils.Screen.Clear();

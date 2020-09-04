@@ -94,9 +94,28 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             return isOver;
         }
 
-        public void CalculateScores()
+        // Calculate current score of players based of pieces left difference
+        public eRoundResult CalculateScores()
         {
+            eRoundResult roundResult;
+            int piecesDifference = Math.Abs(m_PlayerOne.PiecesLeft - m_PlayerTwo.PiecesLeft);
+            
+            if(m_PlayerOne.PiecesLeft > m_PlayerTwo.PiecesLeft)
+            {
+                roundResult = eRoundResult.playerOneVictory;
+                m_PlayerOne.TotalScore += piecesDifference;
+            }
+            else if(m_PlayerOne.PiecesLeft < m_PlayerTwo.PiecesLeft)
+            {
+                roundResult = eRoundResult.playerTwoVictroy;
+                m_PlayerTwo.TotalScore += piecesDifference;
+            }
+            else
+            {
+                roundResult = eRoundResult.Tie;
+            }
 
+            return roundResult;
         }
 
         // Properties
