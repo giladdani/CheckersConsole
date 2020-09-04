@@ -46,10 +46,28 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                     }
                     else //Execute
                     {
-                        m_Board.makeMove(CurrentPlayer, m_Board.GameBoard[i_Move.XFrom,i_Move.YFrom].PiecePointer, new Point(i_Move.XTo, i_Move.YTo));
-                        moveFeedback = eMoveFeedback.Success;
-                        m_LastPlayer = CurrentPlayer;
-                        m_TurnCount++;
+                        if(m_Board.GameBoard[i_Move.XFrom, i_Move.YFrom].PiecePointer.IsKing==false)
+                        {
+                            if ((CurrentPlayer.Side==ePlayerSide.Down && i_Move.XFrom < i_Move.XTo) || (CurrentPlayer.Side == ePlayerSide.Up && i_Move.XFrom > i_Move.XTo))
+                            {
+                                moveFeedback = eMoveFeedback.Failed;
+                            }
+                            else
+                            {
+                                m_Board.makeMove(CurrentPlayer, m_Board.GameBoard[i_Move.XFrom, i_Move.YFrom].PiecePointer, new Point(i_Move.XTo, i_Move.YTo));
+                                moveFeedback = eMoveFeedback.Success;
+                                m_LastPlayer = CurrentPlayer;
+                                m_TurnCount++;
+                            }
+                        }
+                        else
+                        {
+                            m_Board.makeMove(CurrentPlayer, m_Board.GameBoard[i_Move.XFrom, i_Move.YFrom].PiecePointer, new Point(i_Move.XTo, i_Move.YTo));
+                            moveFeedback = eMoveFeedback.Success;
+                            m_LastPlayer = CurrentPlayer;
+                            m_TurnCount++;
+                        }
+                        
                     }
                 }
                 // capture move
@@ -57,23 +75,24 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                 {
                     m_Board.makeCaptureMove(CurrentPlayer, m_Board.GameBoard[i_Move.XFrom, i_Move.YFrom].PiecePointer, new Point(i_Move.XTo, i_Move.YTo));
                     moveFeedback = eMoveFeedback.Success;
-                    m_LastPlayer = CurrentPlayer;
-                    m_TurnCount++;
-                    if (MoveValidator.IsDoubleCaptureMove(CurrentPlayer, m_Board, i_Move))
+                    
+                    if (MoveValidator.isCapturePossiblePerPiece(CurrentPlayer, m_Board, m_Board.GameBoard[i_Move.XTo, i_Move.YTo].PiecePointer))
                     {
                         TurnCount--;
                         moveFeedback = eMoveFeedback.CanDoubleCapture;
                     }
+                    m_LastPlayer = CurrentPlayer;
+                    m_TurnCount++;
                 }
             }
             else  // move is "Q"
             {
                 moveFeedback = eMoveFeedback.Quit;
             }
-                
             return moveFeedback;
         }
 
+       
         // Returns true if the game is over
         public bool IsOver()
         {
