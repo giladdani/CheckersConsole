@@ -79,7 +79,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             foreach(Piece piece in m_Pieces)
             {
                 // if piece can move/capture
-                if(piece.HasPossibleMoves(i_CurrentBoard, this))
+                if(piece.HasPossibleMoves( this, i_CurrentBoard))
                 {
                     hasMove = true;
                 }
@@ -91,17 +91,19 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         public Move GenerateRandomMove(Board i_CurrentBoard)
         {
             int randMoveIndex = 0;
-            List<Move> availableMoves = new List<Move>();
-            foreach(Piece piece in m_Pieces)
+            List<List<Move>> movesList = new List<List<Move>>();
+            foreach (Piece piece in m_Pieces)
             {
+                List<Move> availableMoves = new List<Move>();
                 availableMoves = piece.GetAvailableMovesList(this, i_CurrentBoard);
-                if(availableMoves.Count > 0)
+                movesList.Add(availableMoves);
+                if (availableMoves.Count > 0)
                 {
-                    Random randMoveSelector = new Random();
-                    randMoveIndex = randMoveSelector.Next(availableMoves.Count - 1);
+                    movesList.Add(availableMoves);
                 }
             }
-          
+            Random randMoveSelector = new Random();
+            randMoveIndex = randMoveSelector.Next(availableMoves.Count - 1);
             return availableMoves[randMoveIndex];
         }
 
