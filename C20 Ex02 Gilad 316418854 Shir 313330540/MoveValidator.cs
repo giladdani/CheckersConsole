@@ -321,8 +321,11 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         {
             bool pieceHavePossibleMove = false;
 
-            pieceHavePossibleMove = isSimpleMovePossiblePerPiece(i_Player, i_Board, i_Piece);
-            pieceHavePossibleMove = isCapturePossiblePerPiece(i_Player, i_Board, i_Piece);
+            pieceHavePossibleMove = pieceHavePossibleMove || isSimpleMovePossiblePerPiece(i_Player, i_Board, i_Piece);
+            pieceHavePossibleMove = pieceHavePossibleMove
+        }
+
+        isCapturePossiblePerPiece(i_Player, i_Board, i_Piece);
 
             return pieceHavePossibleMove;
         }
