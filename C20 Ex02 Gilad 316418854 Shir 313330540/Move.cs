@@ -21,8 +21,8 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         {
             m_YFrom = i_YFrom;
             m_XFrom = i_XFrom;
-            m_YFrom = i_YFrom;
-            m_XFrom = i_XFrom;
+            m_YTo = i_YTo;
+            m_XTo = i_XTo;
         }
 
         public Move(string i_Move)

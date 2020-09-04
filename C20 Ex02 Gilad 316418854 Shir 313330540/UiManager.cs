@@ -34,18 +34,23 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                     printLastTurn(lastMove);
                 }
 
-                Move currentMove = getMove(/*out lastMove*/);
+                Move currentMove = getMove();
                 eMoveFeedback moveFeedback = m_CurrentGame.ExecuteMove(currentMove);
                 while(moveFeedback != eMoveFeedback.Success && moveFeedback != eMoveFeedback.Quit)
                 {
                     printFeedback(moveFeedback);
-                    currentMove = getMove(/*out lastMove*/);
+                    currentMove = getMove();
                     moveFeedback = m_CurrentGame.ExecuteMove(currentMove);
                 }
 
+                if(moveFeedback == eMoveFeedback.Quit)
+                {
+                    break;
+                }
                 lastMove = MoveValidator.ConvertMoveToString(currentMove);
             }
 
+            reprintBoard();
             m_CurrentGame.CalculateScores();
             printTotalScores();
             if(playAgain())
@@ -56,15 +61,13 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
 
         // Private Methods
         // Gets a move from the user
-        private Move getMove(/*out string io_MoveString*/)      // TODO delete io_MoveString if new version worked 
+        private Move getMove()
         {
             Move move;
-            string moveString;
 
             if (m_CurrentGame.CurrentPlayer.IsAi)
             {
                 move = m_CurrentGame.CurrentPlayer.GenerateRandomMove(m_CurrentGame.Board);
-                //moveString = MoveValidator.ConvertMoveToString(move);  // TODO delete io_MoveString if new version worked 
             }
             else
             {
@@ -73,7 +76,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                 turnMessage.Append("'s Turn ");
                 turnMessage.Append(m_CurrentGame.CurrentPlayer.Side == ePlayerSide.Down ? "(X): " : "(O): ");
                 Console.Write(turnMessage);
-                moveString = Console.ReadLine();
+                string moveString = Console.ReadLine();
                 while (!InputValidator.IsMoveSyntaxValid(moveString, m_CurrentGame.Board.Size))
                 {
                     Console.Write("Invalid move format, try again: ");
@@ -83,7 +86,6 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                 move = new Move(moveString);
             }
 
-            //io_MoveString = moveString;       // TODO delete if new version worked
             return move;
         }
 
@@ -138,7 +140,8 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                 choiceString = Console.ReadLine();
             }
 
-            return (bool.Parse(choiceString));
+            bool isPlayAgain = choiceString == "1";
+            return isPlayAgain;
         }
 
         // Prints the last players name with it's last move

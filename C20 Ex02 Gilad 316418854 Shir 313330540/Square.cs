@@ -8,10 +8,10 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         private Piece m_PiecePointer;
 
         // Constructors
-        //public Square()
-        //{
-        //    m_PiecePointer = null;
-        //}
+        public Square()
+        {
+            m_PiecePointer = null;
+        }
 
         // Properties
         public Piece PiecePointer

@@ -15,7 +15,6 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         private List<Piece> m_Pieces;
         private int m_TotalScore;
         private bool m_IsAi;
-        private int m_PiecesLeft;
         
         // Constructors
         public Player(string i_Name, ePlayerSide i_Side, int i_BoardSize, bool i_IsAi)
@@ -24,16 +23,15 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             m_Side = i_Side;
             m_IsAi = i_IsAi;
             m_TotalScore = 0;
-            initPieceArr(i_Side, i_BoardSize);
+            InitPieceArr(i_Side, i_BoardSize);
         }
 
-        // Private Methods
+        // Public Methods
         // Initialize array of pieces
-        private void initPieceArr(ePlayerSide i_Side, int i_BoardSize)
+        public void InitPieceArr(ePlayerSide i_Side, int i_BoardSize)
         {
             int numOfPieces = (i_BoardSize / 2) * ((i_BoardSize / 2) - 1);
             m_Pieces = new List<Piece>();
-            m_PiecesLeft = numOfPieces;
             int endRow, startRow, piecesIndex = 0;
             if(i_Side == ePlayerSide.Up)
             {
@@ -70,7 +68,6 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             }
         }
 
-        // Public Methods
         // Returns true if the player has any possible move to play
         public bool HasPossibleMoves(Board i_CurrentBoard)
         {
@@ -79,7 +76,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             foreach(Piece piece in m_Pieces)
             {
                 // if piece can move/capture
-                if(piece.HasPossibleMoves( this, i_CurrentBoard))
+                if(piece.HasPossibleMoves(this, i_CurrentBoard))
                 {
                     hasMove = true;
                 }
@@ -87,24 +84,35 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             return hasMove;
         }
 
-        // Returns a random generated move for the player
-        public Move GenerateRandomMove(Board i_CurrentBoard)
+        // Returns a random selected move for player 2
+        public Move GenerateRandomMove(Board i_Board)
         {
-            int randMoveIndex = 0;
-            List<List<Move>> movesList = new List<List<Move>>();
+            Move chosenMove = null;
+            Move possibleCapture = null;
+            List<List<Move>> allPiecesMoves = new List<List<Move>>();
+
             foreach (Piece piece in m_Pieces)
             {
-                List<Move> availableMoves = new List<Move>();
-                availableMoves = piece.GetAvailableMovesList(this, i_CurrentBoard);
-                movesList.Add(availableMoves);
-                if (availableMoves.Count > 0)
+                List<Move> pieceMoves = piece.GetAvailableMovesList(this, i_Board, out possibleCapture);
+                if (pieceMoves.Count > 0)
                 {
-                    movesList.Add(availableMoves);
+                    allPiecesMoves.Add(pieceMoves);
                 }
             }
-            Random randMoveSelector = new Random();
-            randMoveIndex = randMoveSelector.Next(availableMoves.Count - 1);
-            return availableMoves[randMoveIndex];
+
+            if(possibleCapture != null)
+            {
+                chosenMove = possibleCapture;
+            }
+            else
+            {
+                Random randomGenerator = new Random();
+                int listIndex = randomGenerator.Next(allPiecesMoves.Count - 1);
+                int moveIndex = randomGenerator.Next(allPiecesMoves[listIndex].Count - 1);
+                chosenMove = allPiecesMoves[listIndex][moveIndex];
+            }
+
+            return chosenMove;
         }
 
         // Properties
@@ -152,17 +160,6 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             set
             {
                 m_IsAi = value;
-            }
-        }
-        public int PiecesLeft
-        {
-            get
-            {
-                return m_PiecesLeft;
-            }
-            set
-            {
-                m_PiecesLeft = value;
             }
         }
     }

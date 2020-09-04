@@ -31,67 +31,77 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
 
         }
 
-
         // Returns a list of the piece's possible moves
-        public List<Move> GetAvailableMovesList(Player i_Player, Board i_Board)
+        public List<Move> GetAvailableMovesList(Player i_Player, Board i_Board, out Move i_PossibleCapture)
         {
             List<Move> movesList = new List<Move>();
+            i_PossibleCapture = null;
+
             if (MoveValidator.IsPieceHavePossibleMove(i_Player, i_Board, this))
             {
-
                 if (!this.IsKing)
                 {
-                    addNotKingsMoveToList(i_Player, i_Board, movesList);
+                    addNotKingsMovesToList(i_Player, i_Board, movesList, ref i_PossibleCapture);
                 }
                 else
                 {
-                    addNotKingsMoveToList(i_Player, i_Board, movesList);
+                    addKingsMovesToList(i_Player, i_Board, movesList , ref i_PossibleCapture);
                 }
             }
 
             return movesList;
         }
 
-        private void addNotKingsMoveToList(Player i_Player, Board i_Board, List<Move> i_MovesList)
+        private void addNotKingsMovesToList(Player i_Player, Board i_Board, List<Move> i_MovesList, ref Move i_PossibleCapture)
         {
             if (MoveValidator.IsSimpleMove(i_Player, i_Board, new Move(this.Location.Y, this.Location.X, this.Location.Y + 1, this.Location.X - 1)))
             {
                 i_MovesList.Add(new Move(this.Location.Y, this.Location.X, this.Location.Y + 1, this.Location.X - 1));
             }
+
             if (MoveValidator.IsSimpleMove(i_Player, i_Board, new Move(this.Location.Y, this.Location.X, this.Location.Y - 1, this.Location.X - 1)))
             {
                 i_MovesList.Add(new Move(this.Location.Y, this.Location.X, this.Location.Y - 1, this.Location.X - 1));
             }
+
             if (checkCapture(i_Board, -1, new Move(this.Location.Y, this.Location.X, this.Location.Y - 2, this.Location.X - 2)))
             {
                 i_MovesList.Add(new Move(this.Location.Y, this.Location.X, this.Location.Y - 2, this.Location.X - 2));
+                i_PossibleCapture = new Move(this.Location.Y, this.Location.X, this.Location.Y - 2, this.Location.X - 2);
             }
 
             if (checkCapture(i_Board, 1, new Move(this.Location.Y, this.Location.X, this.Location.Y + 2, this.Location.X - 2)))
             {
                 i_MovesList.Add(new Move(this.Location.Y, this.Location.X, this.Location.Y + 2, this.Location.X - 2));
+                i_PossibleCapture = new Move(this.Location.Y, this.Location.X, this.Location.Y + 2, this.Location.X - 2);
             }
         }
-        private void addKingsMoveToList(Player i_Player, Board i_Board, List<Move> i_MovesList)
+
+        private void addKingsMovesToList(Player i_Player, Board i_Board, List<Move> i_MovesList, ref Move i_PossibleCapture)
         {
             if (MoveValidator.IsSimpleMove(i_Player, i_Board, new Move(this.Location.Y, this.Location.X, this.Location.Y + 1, this.Location.X + 1)))
             {
                 i_MovesList.Add(new Move(this.Location.Y, this.Location.X, this.Location.Y + 1, this.Location.X - 1));
             }
+
             if (MoveValidator.IsSimpleMove(i_Player, i_Board, new Move(this.Location.Y, this.Location.X, this.Location.Y - 1, this.Location.X + 1)))
             {
                 i_MovesList.Add(new Move(this.Location.Y, this.Location.X, this.Location.Y - 1, this.Location.X - 1));
             }
+
             if (checkKingCapture(i_Board, -1, new Move(this.Location.Y, this.Location.X, this.Location.Y - 2, this.Location.X + 2)))
             {
                 i_MovesList.Add(new Move(this.Location.Y, this.Location.X, this.Location.Y - 2, this.Location.X - 2));
+                i_PossibleCapture = new Move(this.Location.Y, this.Location.X, this.Location.Y - 2, this.Location.X - 2);
             }
 
             if (checkKingCapture(i_Board, 1, new Move(this.Location.Y, this.Location.X, this.Location.Y + 2, this.Location.X + 2)))
             {
                 i_MovesList.Add(new Move(this.Location.Y, this.Location.X, this.Location.Y + 2, this.Location.X - 2));
+                i_PossibleCapture = new Move(this.Location.Y, this.Location.X, this.Location.Y + 2, this.Location.X - 2);
             }
         }
+
         private bool checkCapture(Board i_Board, int i_Direction, Move i_Move)
         {
             bool captureMove = false;
@@ -99,11 +109,16 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             {
                 if (i_Board.GameBoard[i_Move.XTo, i_Move.YTo].PiecePointer == null)
                 {
-                    if (i_Board.GameBoard[i_Move.XFrom - 1, i_Move.YFrom + i_Direction].PiecePointer.Side == MoveValidator.GetOtherSide(this.Side))
+                    if(MoveValidator.IsInBorders(i_Board, i_Move.XFrom - 1, i_Move.YFrom + i_Direction))
                     {
-                        captureMove = true;
+                        if((i_Board.GameBoard[i_Move.XFrom - 1, i_Move.YFrom + i_Direction].PiecePointer != null))
+                        {
+                            if (i_Board.GameBoard[i_Move.XFrom - 1, i_Move.YFrom + i_Direction].PiecePointer.Side == MoveValidator.GetOtherSide(this.Side))
+                            {
+                                captureMove = true;
+                            }
+                        }
                     }
-
                 }
             }
             return captureMove;

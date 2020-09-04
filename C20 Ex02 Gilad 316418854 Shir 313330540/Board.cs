@@ -21,6 +21,7 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
         public void Build()
         {
             m_GameBoard = new Square[m_Size, m_Size];
+
             for (int i = 0; i < m_Size; i++)
             {
                 for (int j = 0; j < m_Size; j++)
@@ -40,27 +41,23 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
                 m_GameBoard[x, y].PiecePointer = piece;
             }
         }
-       
-       
 
         // Update the board of moving piece
         public void makeMove(Player i_Player, Piece i_Piece, Point i_To)
         {
             m_GameBoard[i_Piece.Location.X, i_Piece.Location.Y].PiecePointer = null;
-            // the piece pointer that this square had will be null now
-            i_Piece.Location = i_To;// update piece location
+            i_Piece.Location = i_To;
             m_GameBoard[i_To.X, i_To.Y].PiecePointer = i_Piece;
-            //update the piece pointer in the new piece it have
-            if(i_To.X==0 || i_To.X==Size-1)
+            if(i_To.X == 0 || i_To.X == Size-1)
             {
                 i_Piece.IsKing = true;
-
             }
         }
 
-        internal void makeCaptureMove(Player i_Player, Piece i_Piece, Point i_To)
+        // Make a capture move and update enemy player pieces and board
+        public void MakeCaptureMove(Player i_EnemyPlayer, Piece i_Piece, Point i_To)
         {
-            i_Player.Pieces.Remove(m_GameBoard[(i_Piece.Location.X + i_To.X) / 2, (i_Piece.Location.Y + i_To.Y) / 2].PiecePointer);
+            i_EnemyPlayer.Pieces.Remove(m_GameBoard[(i_Piece.Location.X + i_To.X) / 2, (i_Piece.Location.Y + i_To.Y) / 2].PiecePointer);
             m_GameBoard[i_Piece.Location.X, i_Piece.Location.Y].PiecePointer = null;
             m_GameBoard[(i_Piece.Location.X+i_To.X)/2, (i_Piece.Location.Y+ i_To.Y)/2].PiecePointer.IsCaptured = true;
             m_GameBoard[(i_Piece.Location.X + i_To.X) / 2, (i_Piece.Location.Y + i_To.Y) / 2].PiecePointer = null;
@@ -69,7 +66,6 @@ namespace C20_Ex02_Gilad_316418854_Shir_313330540
             if (i_To.X == 0 || i_To.X == Size - 1)
             {
                 i_Piece.IsKing = true;
-
             }
         }
 
